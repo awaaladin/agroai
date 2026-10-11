@@ -6,9 +6,11 @@ model slip is caught before it reaches a farmer. Both are unit-tested.
 from app.knowledge import crop_entry, load_crops, load_safety
 from app.schemas.common import LOW_CONFIDENCE, Language
 from app.schemas.diagnose import Diagnosis
-from app.schemas.weather import AdviceItem
+from datetime import date
 
-PROMPT_VERSION = "2026-10-10.1"
+from app.schemas.weather import AdviceItem, Forecast
+
+PROMPT_VERSION = "2026-10-11.1"
 
 ROLE = """\
 You are AgroAI Advisor, a knowledgeable, respectful extension advisor for smallholder farmers in Akwa Ibom, Nigeria.
@@ -62,7 +64,14 @@ LANGUAGE_RULES = {
     Language.en: """\
 Language: English. Write in plain English at about a grade 6 reading level. Short sentences, common words, no jargon (if you must use a technical word, explain it).""",
     Language.pcm: """\
-Language: Nigerian Pidgin (pcm). Write EVERY farmer-facing text field in simple, clear Nigerian Pidgin (what_i_see, why_i_think_so, what_could_change_my_mind, every action "what" and "why", every prevention tip, every farmer_questions item, escalate.reason, follow_up_suggestions, photo_advice, and spoken_text), not just spoken_text. Speak like a friendly extension officer would talk. Natural, not a caricature: no exaggerated slang, no jokes, no broken spelling for effect. Keep crop and disease names in plain English (cassava, mosaic, armyworm). Examples of the tone: "I dey fairly sure", "No be say I sure well well", "Abeg check under the leaf", "Make you show the extension officer".""",
+Language: Nigerian Pidgin (pcm). Write EVERY farmer-facing text field in real, everyday Nigerian Pidgin (what_i_see, why_i_think_so, what_could_change_my_mind, every action "what" and "why", every prevention tip, every farmer_questions item, escalate.reason, follow_up_suggestions, photo_advice, answer_text and spoken_text), not just spoken_text.
+It must read like a person from Akwa Ibom talking, NOT English with a few Pidgin words dropped in. Use Pidgin grammar all the way through:
+- Verb markers: "dey" for what is happening now or always ("the leaf dey turn yellow", "rain dey fall"), "don" for finished or already ("the plant don dry", "you don try well"), "go" for the future ("e go rain tomorrow"), "no" for negative ("e no dey fine", "I no sure").
+- Pronouns and links: "I", "you", "e" (it/he/she), "dem" (they/them), "una" (you all), "wey" (that/which/who), "na" (it is), "for" (in/at/on/to), "make" (let/should).
+- Common words: "wetin" (what), "how far", "abeg" (please), "sabi" (know), "fit" (can), "wahala" (trouble), "well well" (very), "small small" (gradually), "sef", "o" at the end for emphasis, "wey" instead of "that", "pass" for comparison, "plenty", "chop" (eat/damage), "farm" for the farm, "kill" for destroy pests.
+- Sentence shape: short, direct, spoken. "Abeg come close the leaf make I see am well." "No spray today because rain go fall for evening." "Na cassava mosaic I think say e be."
+- Keep crop and disease names, numbers, units and place names in plain English (cassava, mosaic, armyworm, 30 degrees, Uyo) so they stay clear.
+Tone: warm and respectful like a good extension officer: natural, not a caricature and not a comedian. No jokes, no mocking spellings, no slang that a farmer would not use. Examples: "I dey fairly sure say na mosaic.", "No be say I sure well well, so abeg show extension officer.", "Pull the sick plants comot today make whitefly no carry am go the next one.", "The rain go come plenty tomorrow, so no spray today.", "Wetin you see for the underside of the leaf?" Keep every answer short and spoken.""",
 }
 
 SPOKEN_RULES = """\
@@ -88,6 +97,8 @@ def chat_system_prompt(language: Language) -> str:
         "spoken_text (the same answer written for reading aloud: no symbols or lists), two or three short follow_up_suggestions "
         "the farmer might tap next, escalate, and confidence. Use the diagnosis and weather notes given, and do not contradict them. "
         "If the question is about spraying, planting, harvesting or drying, rely on the weather rules and explain them simply. "
+        "If the question is about the weather itself (today, tomorrow, rain, heat, wind, the week), use only the real forecast data given; "
+        "state the real numbers, and if no forecast is given say you cannot see it instead of guessing. "
         "If it is outside farming, decline politely and say who to ask.",
     ])
 
@@ -122,12 +133,59 @@ def grounding(crop: str | None) -> str:
     return header + "\n\nCrops covered and their common problems:\n" + compact
 
 
-def weather_block(advice: list[AdviceItem] | None, language: Language) -> str:
+def _condition(code: int) -> str:
+    """Plain words for a WMO weather code."""
+    if code == 0:
+        return "clear sky"
+    if code in (1, 2):
+        return "partly cloudy"
+    if code == 3:
+        return "overcast"
+    if code in (45, 48):
+        return "fog"
+    if 51 <= code <= 57:
+        return "drizzle"
+    if 61 <= code <= 67:
+        return "rain"
+    if 80 <= code <= 82:
+        return "rain showers"
+    if 95 <= code <= 99:
+        return "thunderstorm"
+    return "unsettled"
+
+
+def forecast_block(forecast: Forecast | None) -> str:
+    """The actual numbers, so weather answers come from real data and never from a guess."""
+    if forecast is None:
+        return ""
+    cur = forecast.current
+    lines = [
+        "Real forecast for this farm (live data from the Open-Meteo weather service for the farm's location, rounded to about 1 km). "
+        "When the farmer asks about the weather, answer ONLY from this data: give the actual temperatures, rain chances and days, "
+        "and say it is a forecast that can change. Never invent weather that is not listed here.",
+        f"Now: {cur.temp_c:.0f} C, {_condition(cur.condition_code)}, wind {cur.wind_kph:.0f} km/h.",
+        f"Chance of rain in the next 12 hours (hour by hour, percent): {', '.join(str(p) for p in forecast.hourly_rain_chance_next_12h)}.",
+        f"Rain that fell in the last 3 days: {forecast.recent_rain_mm:.1f} mm.",
+    ]
+    for i, d in enumerate(forecast.days):
+        try:
+            name = date.fromisoformat(d.date).strftime("%A")
+        except ValueError:
+            name = d.date
+        label = f"{name} {d.date}" + (" (today)" if i == 0 else " (tomorrow)" if i == 1 else "")
+        lines.append(f"- {label}: {_condition(d.condition_code)}, {d.low_c:.0f} to {d.high_c:.0f} C, "
+                     f"rain chance {d.rain_chance_pct}%, rain {d.rain_mm:.1f} mm, wind up to {d.wind_kph:.0f} km/h")
+    return "\n".join(lines)
+
+
+def weather_block(advice: list[AdviceItem] | None, language: Language, forecast: Forecast | None = None) -> str:
+    fb = forecast_block(forecast)
     if not advice:
-        return "Weather: no forecast is available. Do not guess the weather."
+        return fb or "Weather: no forecast is available. Do not guess the weather. If asked, say you cannot see the forecast and ask the farmer to set their town or allow location."
     lines = "\n".join(f"- [{a.severity}] {a.message_pcm if language is Language.pcm else a.message}" for a in advice)
-    return ("Weather rules for this farm (decided by the app from the forecast; do not change or add to them, "
-            "only explain them simply and use them to time your actions):\n" + lines)
+    block = ("Weather rules for this farm (decided by the app from the forecast; do not change or add to them, "
+             "only explain them simply and use them to time your actions):\n" + lines)
+    return (fb + "\n\n" + block) if fb else block
 
 
 def farmer_block(ctx) -> str:
@@ -184,9 +242,9 @@ def diagnosis_summary(d: Diagnosis | None) -> str:
 
 
 def chat_context_text(crop: str | None, d: Diagnosis | None, weather: list[AdviceItem] | None,
-                      language: Language, farmer=None) -> str:
+                      language: Language, farmer=None, forecast: Forecast | None = None) -> str:
     blocks = [grounding(crop)]
     fb = farmer_block(farmer)
     if fb:
         blocks.append(fb)
-    return "\n\n".join(blocks + [diagnosis_summary(d), weather_block(weather, language)])
+    return "\n\n".join(blocks + [diagnosis_summary(d), weather_block(weather, language, forecast)])

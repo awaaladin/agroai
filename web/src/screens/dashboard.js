@@ -6,7 +6,7 @@ import { settings } from '../state/store.js';
 import { currentUser, isLoggedIn } from '../api/auth.js';
 import { myChecks, myCheck, weatherAdvice } from '../api/endpoints.js';
 import { refreshProfile, saveProfile } from '../state/account.js';
-import { getLocation, TOWNS } from '../device/location.js';
+import { getLocation, useMyLocation } from '../device/location.js';
 import { icons } from '../ui/icons/index.js';
 import { cropIcon, CROPS } from '../ui/crops.js';
 import { weatherIcon, kindOf } from '../ui/weather-icons.js';
@@ -62,13 +62,24 @@ export function render(host) {
         </section>
 
         <div class="flex flex-col gap-6">
-          <section class="card flex flex-col gap-3" aria-labelledby="wx-h"><h2 id="wx-h">${t('dash.weatherToday')}</h2><div id="wx">${loc ? '<div class="skeleton h-20"></div>' : `<a class="btn btn-ghost" href="#/account">${icons.pin()} ${t('weather.pickTown')}</a>`}</div></section>
+          <section class="card flex flex-col gap-3" aria-labelledby="wx-h"><h2 id="wx-h">${t('dash.weatherToday')}</h2><div id="wx">${loc ? '<div class="skeleton h-20"></div>' : `<button type="button" class="btn btn-primary btn-sm" id="gps-dash">${icons.pin()} ${t('auth.useLocation')}</button>
+            <a class="link text-small mt-2 inline-block" href="#/weather">${t('weather.pickTown')}</a><p id="gps-dash-status" class="text-small font-bold" role="status" aria-live="polite"></p>`}</div></section>
           <section class="card flex flex-col gap-4" aria-labelledby="farm-h" id="farm"></section>
         </div>
       </div>
     </div>`;
 
   const $ = qs(host);
+
+  // ---- No location yet: one tap reads the phone's real position, names the place and saves it ----
+  host.querySelector('#gps-dash')?.addEventListener('click', async () => {
+    $('#gps-dash-status').textContent = t('auth.locating');
+    try {
+      const here = await useMyLocation();
+      if (isLoggedIn()) saveProfile({ town: here.place, lat: here.lat, lon: here.lon }).catch(() => {});
+      render(host);
+    } catch { $('#gps-dash-status').textContent = t('errors.location'); }
+  });
 
   // ---- Weather today (real forecast, first rule as the headline) ----
   if (loc) {
@@ -132,9 +143,15 @@ export function render(host) {
       <div class="flex flex-wrap gap-2" id="crop-chips">${(u.crops || []).map((c) => `
         <span class="chip"><span class="text-[1.4rem]">${cropIcon[c] || ''}</span>${esc(t(`crops.${c}`) !== `crops.${c}` ? t(`crops.${c}`) : c)}
           <button type="button" class="px-1" data-remove="${esc(c)}" aria-label="${t('common.delete')} ${esc(c)}">&times;</button></span>`).join('')}</div>
-      <label class="flex flex-col gap-2"><span class="field-label">${t('dash.addCrop')}</span>
-        <select class="input" id="add-crop"><option value="">${t('dash.addCrop')}</option>
-          ${CROPS.filter((c) => c !== 'other' && !(u.crops || []).includes(c)).map((c) => `<option value="${c}">${t(`crops.${c}`)}</option>`).join('')}</select></label>
+      <div class="flex flex-col gap-2">
+        <label class="field-label" for="add-crop">${t('dash.addCrop')}</label>
+        <div class="flex gap-2">
+          <input class="input min-w-0 flex-1" id="add-crop" list="crop-options" maxlength="40" autocomplete="off" enterkeyhint="done"
+            placeholder="${t('dash.typeCrop')}">
+          <datalist id="crop-options">${CROPS.filter((c) => c !== 'other' && !(u.crops || []).includes(c)).map((c) => `<option value="${esc(t(`crops.${c}`))}"></option>`).join('')}</datalist>
+          <button type="button" class="btn btn-primary" id="add-crop-btn">${t('dash.addBtn')}</button>
+        </div>
+      </div>
       <label class="flex flex-col gap-2"><span class="field-label">${t('dash.notes')}</span>
         <textarea class="input min-h-[7rem]" id="notes" maxlength="500" placeholder="${t('dash.notesHint')}">${esc(u.notes)}</textarea></label>
       <button class="btn btn-primary" type="button" id="save-farm">${t('dash.save')}</button>
@@ -149,7 +166,21 @@ export function render(host) {
     };
     box.querySelectorAll('[data-remove]').forEach((b) => b.addEventListener('click', () =>
       save({ crops: (u.crops || []).filter((c) => c !== b.dataset.remove) })));
-    box.querySelector('#add-crop').addEventListener('change', (e) => { if (e.target.value) save({ crops: [...(u.crops || []), e.target.value] }); });
+    // The farmer can pick a suggestion or type any produce: "okra", "groundnut", "garden egg"...
+    const addTyped = () => {
+      const input = box.querySelector('#add-crop');
+      const typed = input.value.trim().replace(/\s+/g, ' ').slice(0, 40);
+      if (!typed) { input.focus(); return; }
+      const lower = typed.toLowerCase();
+      const known = CROPS.find((c) => c !== 'other' && (c === lower || t(`crops.${c}`).toLowerCase() === lower));
+      const key = known || lower;
+      const have = u.crops || [];
+      if (have.includes(key)) { input.value = ''; status(t('dash.cropHave')); return; }
+      if (have.length >= 10) { status(t('dash.cropMax')); return; }
+      save({ crops: [...have, key] });
+    };
+    box.querySelector('#add-crop-btn').addEventListener('click', addTyped);
+    box.querySelector('#add-crop').addEventListener('keydown', (e) => { if (e.key === 'Enter') { e.preventDefault(); addTyped(); } });
     box.querySelector('#save-farm').addEventListener('click', () => save({ notes: box.querySelector('#notes').value }));
   }
 

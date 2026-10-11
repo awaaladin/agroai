@@ -75,5 +75,10 @@ export const myChecks = (limit = 20, offset = 0) => request(`/v1/me/checks?limit
 /** @returns {Promise<{id:string, created_at:string, result:Diagnosis}>} */
 export const myCheck = (id) => request(`/v1/me/checks/${id}`);
 export const deleteMyCheck = (id) => request(`/v1/me/checks/${id}`, { method: 'DELETE' });
-export const clearMyHistory = () => request('/v1/me/history', { method: 'DELETE' });
+/** @typedef {{id:number, started_at:string, last_at:string, title:string, messages:number}} ConversationSummary */
+/** @returns {Promise<ConversationSummary[]>} past conversations, newest first (accounts only) */
+export const myChats = (limit = 20) => request(`/v1/me/chats?limit=${limit}`);
+/** @returns {Promise<{role:'farmer'|'advisor', text:string, created_at:string}[]>} */
+export const myChat = (id) => request(`/v1/me/chats/${id}`);
+export const clearMyHistory =() => request('/v1/me/history', { method: 'DELETE' });
 export const deleteMyAccount = () => request('/v1/me', { method: 'DELETE' });

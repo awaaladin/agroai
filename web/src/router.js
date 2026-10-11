@@ -44,6 +44,14 @@ function directionFor(path) {
   return 'forward';
 }
 
+// The loading line runs to the end, then fades (data-loading: '1' while a page loads, 'done' for a moment after).
+let doneTimer = 0;
+function finishLoading(root) {
+  root.dataset.loading = 'done';
+  clearTimeout(doneTimer);
+  doneTimer = setTimeout(() => { if (root.dataset.loading === 'done') delete root.dataset.loading; }, 700);
+}
+
 async function show(host) {
   const token = ++navToken;
   const path = currentPath();
@@ -55,9 +63,9 @@ async function show(host) {
   root.dataset.nav = directionFor(path);
   root.dataset.loading = '1'; // a thin progress line appears only if the page takes a moment (see main.css)
   let mod;
-  try { mod = await loader(); } catch { delete root.dataset.loading; host.textContent = 'Could not load this page. Please reload.'; return; }
+  try { mod = await loader(); } catch { finishLoading(root); host.textContent = 'Could not load this page. Please reload.'; return; }
   if (token !== navToken) return; // a newer navigation won
-  delete root.dataset.loading;
+  finishLoading(root);
 
   const swap = () => {
     cleanup?.();
@@ -73,7 +81,12 @@ async function show(host) {
   };
 
   if (document.startViewTransition) {
-    document.startViewTransition(swap);
+    // A transition can be aborted by the browser (the phone's address bar resizes the viewport, the tab is hidden).
+    // That is harmless: the page still updates, so the rejections are swallowed instead of becoming page errors.
+    const vt = document.startViewTransition(swap);
+    vt.ready?.catch(() => {});
+    vt.finished?.catch(() => {});
+    vt.updateCallbackDone?.catch(() => {});
   } else {
     swap();
     void host.offsetWidth; // restart the CSS animation

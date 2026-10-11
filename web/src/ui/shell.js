@@ -155,7 +155,7 @@ function renderFooter(el) {
       <p class="font-bold">${t('footer.line')}</p>
       <p class="text-small text-ink-soft">${t('footer.privacy')}</p>
       <p class="text-small text-ink-soft">${t('footer.built')}</p>
-      ${inApp() ? `<a class="link text-small self-start" href="#/guide">${t('nav.guide')}</a>` : ''}
+      ${inApp() ? `<a class="btn btn-ghost btn-sm self-start" href="#/guide">${icons.book()} ${t('nav.guide')}</a>` : ''}
     </div>`;
 }
 

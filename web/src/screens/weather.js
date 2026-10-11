@@ -10,7 +10,7 @@ import { weatherAdvice } from '../api/endpoints.js';
 import { weatherIcon, kindOf } from '../ui/weather-icons.js';
 import { icons } from '../ui/icons/index.js';
 import { friendlyError, errorBox } from '../ui/components/friendly.js';
-import { getLocation } from '../device/location.js';
+import { getLocation, useMyLocation, saveTown, TOWNS } from '../device/location.js';
 import { work } from '../state/session.js';
 
 const esc = (s) => String(s ?? '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
@@ -37,9 +37,23 @@ export function render(host) {
   const ctl = new AbortController();
 
   if (!loc) {
-    $('#body').innerHTML = `<div class="card flex flex-col gap-4 text-center">
+    // No saved place yet: use the phone's real position, or pick a town right here.
+    $('#body').innerHTML = `<div class="card flex flex-col gap-4">
       <p class="text-h3">${t('weather.noLocation')}</p>
-      <a class="btn btn-primary" href="#/account">${icons.pin()} ${t('weather.pickTown')}</a></div>`;
+      <button class="btn btn-primary" type="button" id="gps">${icons.pin()} ${t('auth.useLocation')}</button>
+      <label class="flex flex-col gap-2"><span class="field-label">${t('auth.town')}</span>
+        <select class="input" id="town-pick"><option value="">${t('auth.townPick')}</option>
+          ${TOWNS.map((x) => `<option value="${esc(x.name)}">${esc(x.name)}</option>`).join('')}</select></label>
+      <p id="loc-status" class="min-h-[1.5em] font-bold" role="status" aria-live="polite"></p></div>`;
+    $('#gps').addEventListener('click', async () => {
+      $('#loc-status').textContent = t('auth.locating');
+      try { await useMyLocation(); render(host); }
+      catch { $('#loc-status').textContent = t('errors.location'); }
+    });
+    $('#town-pick').addEventListener('change', (e) => {
+      const town = TOWNS.find((x) => x.name === e.target.value);
+      if (town) { saveTown(town); render(host); }
+    });
     return () => {};
   }
 
@@ -99,6 +113,20 @@ export function render(host) {
       </section>`;
 
     $('#hear').addEventListener('click', () => speak(spoken || word(w.current.condition_code), { interrupt: true }));
+    // Moved, or the saved place is out of date: read the phone's real position again.
+    const body = $('#body');
+    if (body.append) {
+      const row = document.createElement('div');
+      row.className = 'flex flex-col gap-2';
+      row.innerHTML = `<button type="button" class="btn btn-ghost btn-sm self-start" id="relocate">${icons.pin()} ${t('auth.useLocation')}</button>
+        <p id="reloc-status" class="min-h-[1.5em] text-small font-bold" role="status" aria-live="polite"></p>`;
+      body.append(row);
+      row.querySelector('#relocate').addEventListener('click', async () => {
+        row.querySelector('#reloc-status').textContent = t('auth.locating');
+        try { await useMyLocation(); render(host); }
+        catch { row.querySelector('#reloc-status').textContent = t('errors.location'); }
+      });
+    }
     // Read aloud when the farmer taps the card, as well as on the button.
     $('#body').querySelector('[aria-labelledby="meaning-h"]').addEventListener('click', (e) => {
       if (e.target.closest('button, a')) return;

@@ -30,3 +30,17 @@ async def advice_for(
     except Exception:
         log.warning("weather lookup failed")
         return None
+
+
+async def forecast_and_advice(
+    provider: WeatherProvider, lat: float | None, lon: float | None, crop: str | None
+) -> tuple[Forecast | None, list[AdviceItem] | None]:
+    """The real forecast and the rule-based advice from it, or (None, None) with no location or a service failure."""
+    if lat is None or lon is None:
+        return None, None
+    try:
+        forecast = await provider.forecast(lat, lon)
+        return forecast, evaluate(forecast, crop)
+    except Exception:
+        log.warning("weather lookup failed")
+        return None, None

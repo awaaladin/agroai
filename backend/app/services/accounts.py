@@ -3,14 +3,14 @@ import json
 import logging
 import uuid
 from dataclasses import dataclass, field
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 
 from sqlalchemy import delete, func, select
 
 from app.core.config import Settings
 from app.core.security import hash_pin, mask_phone, normalize_phone, valid_pin, verify_pin
 from app.db.models import ChatMessageRow, CheckRow, User
-from app.schemas.accounts import CheckSummary, Profile, ProfileUpdate
+from app.schemas.accounts import ChatTurn, CheckSummary, ConversationSummary, Profile, ProfileUpdate
 from app.schemas.diagnose import DiagnoseResponse
 from app.services.crop_names import normalize_crop
 
@@ -20,6 +20,7 @@ MAX_HISTORY_KEPT = 200  # checks per farmer
 MAX_CHAT_KEPT = 200
 CONTEXT_CHECKS = 5  # past checks the advisor is told about
 CONTEXT_CHAT = 6  # recent chat turns the advisor is reminded of
+CONVERSATION_GAP = timedelta(minutes=45)  # a longer silence starts a new conversation
 
 
 class AccountError(Exception):
@@ -222,6 +223,37 @@ class AccountService:
             if old:
                 await s.execute(delete(ChatMessageRow).where(ChatMessageRow.id.in_(old)))
                 await s.commit()
+
+    async def _conversations(self, user_id: str) -> list[list[ChatMessageRow]]:
+        """All kept chat messages for the farmer, split into conversations by time gaps (oldest first)."""
+        async with self.db.session() as s:
+            rows = (await s.scalars(select(ChatMessageRow).where(ChatMessageRow.user_id == user_id)
+                                    .order_by(ChatMessageRow.id.asc()))).all()
+        groups: list[list[ChatMessageRow]] = []
+        for m in rows:
+            if groups and _aware(m.created_at) - _aware(groups[-1][-1].created_at) <= CONVERSATION_GAP:
+                groups[-1].append(m)
+            else:
+                groups.append([m])
+        return groups
+
+    async def list_conversations(self, user_id: str, limit: int = 20) -> list[ConversationSummary]:
+        """Past conversations, newest first, each titled with the farmer's first question."""
+        out = []
+        for g in reversed(await self._conversations(user_id)):
+            first_q = next((m.text for m in g if m.role == "farmer"), g[0].text)
+            title = " ".join(first_q.split())
+            out.append(ConversationSummary(
+                id=g[0].id, started_at=_aware(g[0].created_at), last_at=_aware(g[-1].created_at),
+                title=(title[:57] + "...") if len(title) > 60 else title, messages=len(g),
+            ))
+        return out[:limit]
+
+    async def get_conversation(self, user_id: str, conversation_id: int) -> list[ChatTurn] | None:
+        for g in await self._conversations(user_id):
+            if g[0].id == conversation_id:
+                return [ChatTurn(role=m.role, text=m.text, created_at=_aware(m.created_at)) for m in g]
+        return None
 
     # ---- personalisation -------------------------------------------------------------------------------------
 

@@ -65,3 +65,19 @@ class CheckSummary(BaseModel):
     problem: str
     confidence: float
     escalate: bool
+
+
+class ConversationSummary(BaseModel):
+    """One conversation: a run of chat messages with no long gap between them. `id` is its first message."""
+
+    id: int
+    started_at: datetime
+    last_at: datetime
+    title: str
+    messages: int
+
+
+class ChatTurn(BaseModel):
+    role: str  # "farmer" or "advisor"
+    text: str
+    created_at: datetime

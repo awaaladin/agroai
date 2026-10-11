@@ -48,6 +48,8 @@ export function render(host) {
               <span class="text-[3rem]">${cropIcon[c]}</span><span class="text-small font-bold">${t(`crops.${c}`)}</span>
             </button>`).join('')}
         </div>
+        <label class="flex flex-col gap-2"><span class="font-bold">${t('check.otherCrop')}</span>
+          <input id="crop-other" class="input" maxlength="40" autocomplete="off" placeholder="${t('check.otherHint')}"></label>
       </section>
 
       <label class="flex flex-col gap-2"><span class="font-bold">${t('check.symptoms')}</span>
@@ -70,10 +72,17 @@ export function render(host) {
     host.querySelectorAll('[data-crop]').forEach((x) => x.setAttribute('aria-pressed', 'false'));
     b.setAttribute('aria-pressed', String(on));
     work.crop = on && b.dataset.crop !== 'other' ? b.dataset.crop : '';
+    $('#crop-other').value = ''; // a tile replaces whatever was typed
     host.querySelectorAll('[data-crop]').forEach((x) => { x.style.background = x.getAttribute('aria-pressed') === 'true' ? 'rgb(var(--c-leaf) / 0.35)' : ''; });
     haptic('tap');
     speak(t(`crops.${b.dataset.crop}`), { interrupt: true, auto: true });
   }));
+  // Any produce can be typed when it is not in the list; it replaces the tile choice.
+  $('#crop-other').addEventListener('input', (e) => {
+    const typed = e.target.value.trim().replace(/\s+/g, ' ').toLowerCase().slice(0, 40);
+    host.querySelectorAll('[data-crop]').forEach((x) => { x.setAttribute('aria-pressed', 'false'); x.style.background = ''; });
+    work.crop = typed;
+  });
 
   // --- spoken tips, one every few seconds while the camera is open ---
   function nextTip() {

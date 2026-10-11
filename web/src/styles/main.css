@@ -370,9 +370,11 @@ html[data-nav='back']::view-transition-new(root) { animation: 300ms var(--spring
 header#site-header, #tabbar { view-transition-name: none; }
 
 /* ---- Loading line: only appears if a page takes longer than ~150 ms to arrive ---- */
-html[data-loading='1']::before { content: ''; position: fixed; z-index: 300; left: 0; top: 0; height: 3px; width: 100%;
-  background: linear-gradient(90deg, rgb(var(--c-clay)), rgb(var(--c-sun))); transform-origin: left; transform: scaleX(0); opacity: 0;
-  animation: load-line 1.4s ease-out 150ms forwards; }
+html::before { content: ''; position: fixed; z-index: 300; left: 0; top: 0; height: 3px; width: 100%; pointer-events: none;
+  background: linear-gradient(90deg, rgb(var(--c-clay)), rgb(var(--c-sun))); transform-origin: left; transform: scaleX(0); opacity: 0; }
+html[data-loading='1']::before { animation: load-line 1.6s ease-out 150ms forwards; }
+/* When the page has arrived the line runs the rest of the way to the end, then fades. */
+html[data-loading='done']::before { transform: scaleX(1); opacity: 0; transition: transform 200ms ease-out, opacity 300ms ease-out 180ms; }
 @keyframes load-line { 0% { opacity: 1; transform: scaleX(0.05); } 100% { opacity: 1; transform: scaleX(0.85); } }
 
 /* ---- Landing hero polish ---- */
@@ -389,3 +391,26 @@ html[data-loading='1']::before { content: ''; position: fixed; z-index: 300; lef
 }
 html[data-motion='reduce'] .tabbar .tab-pill { transition: none; }
 html[data-motion='reduce'] .tabbar a[aria-current='page'] .tab-icon { animation: none; }
+
+/* =============================================================================================================
+   Small screens: calmer, more professional proportions. Everything is rem-based, so the A- / A+ buttons and the
+   text-size setting still scale from here. Inputs stay at 16px so iPhones do not zoom the page on focus.
+   ============================================================================================================= */
+@media (max-width: 480px) {
+  html { font-size: calc(90% * var(--text-scale)); }
+  .btn { min-height: 2.75rem; padding: 0.5rem 1rem; font-size: 0.98rem; gap: 0.5rem; }
+  .btn-sm { min-height: 2.4rem; padding: 0.3rem 0.75rem; font-size: 0.9rem; }
+  .input { min-height: 2.75rem; padding: 0.55rem 0.85rem; font-size: 16px; }
+  .card { padding: 1rem; border-radius: 0.9rem; }
+  .action-card { padding: 0.85rem; }
+  .chip { min-height: 2.2rem; padding: 0.15rem 0.7rem; }
+  .page, .page-narrow, .page-wide { padding-inline: max(1rem, env(safe-area-inset-left)); }
+  .tabbar a { min-height: 3.1rem; padding: 0.3rem 0.1rem; }
+  .tabbar .tab-icon { font-size: 1.35rem; }
+  .tabbar .tab-label { font-size: 0.68rem; font-weight: 700; letter-spacing: 0; }
+  body.has-tabbar { padding-bottom: calc(4.1rem + env(safe-area-inset-bottom)); }
+  .seg button { min-height: 2rem; padding-inline: 0.5rem; }
+  .menu-row { min-height: 2.75rem; }
+  h1 { letter-spacing: -0.01em; }
+}
+@media (max-width: 480px) { body.has-tabbar main .sticky.bottom-0 { bottom: calc(4.1rem + env(safe-area-inset-bottom)); } }

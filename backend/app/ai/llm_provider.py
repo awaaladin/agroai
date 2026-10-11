@@ -87,7 +87,7 @@ class LLMProvider(VisionProvider):
         return out.diagnosis
 
     async def chat(self, req: ChatInput) -> ChatAnswer:
-        context = prompts.chat_context_text(req.crop, req.diagnosis, req.weather, req.language, req.farmer)
+        context = prompts.chat_context_text(req.crop, req.diagnosis, req.weather, req.language, req.farmer, req.forecast)
         turns = [Turn("user" if t["role"] == "farmer" else "assistant", t["text"]) for t in req.history]
         turns.append(Turn("user", f"<context>\n{context}\n</context>\n\n<farmer_text>{req.message}</farmer_text>"))
 

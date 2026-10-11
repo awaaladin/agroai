@@ -1,19 +1,23 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512" role="img" aria-label="AgroAI Advisor">
-  <rect width="512" height="512" rx="112" fill="#F7F1E1"/>
-  <g transform="translate(0,-12)">
-    <circle cx="256" cy="196" r="92" fill="#F2B532"/>
-    <path d="M256 330 V232" stroke="#3BB273" stroke-width="14" stroke-linecap="round" fill="none"/>
-    <path d="M256 240 C236 180 186 160 140 170 C138 220 178 260 256 240 Z" fill="#3BB273"/>
-    <path d="M256 240 C222 214 188 194 158 184" stroke="#2E9A62" stroke-width="5" stroke-linecap="round" fill="none"/>
-    <path d="M256 230 C274 160 330 132 384 144 C390 200 346 250 256 230 Z" fill="#3BB273"/>
-    <g stroke="#F7F1E1" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
-      <path d="M262 222 L322 184 H344"/>
-      <path d="M296 200 L316 214 H340"/>
-      <path d="M300 170 V156 L318 146"/>
-    </g>
-    <g fill="#F7F1E1"><circle cx="348" cy="184" r="6"/><circle cx="344" cy="214" r="6"/><circle cx="321" cy="144" r="6"/></g>
-    <path d="M92 318 C92 300 108 292 124 300 C150 316 180 324 206 324 H306 C332 324 362 316 388 300 C404 292 420 300 420 318 C420 388 350 440 256 440 C162 440 92 388 92 318 Z" fill="#0F3D2E"/>
-    <path d="M378 322 C378 360 350 392 308 406" stroke="#F7F1E1" stroke-width="6" stroke-linecap="round" fill="none"/>
-    <path d="M102 334 C132 346 166 350 196 346" stroke="#F7F1E1" stroke-width="6" stroke-linecap="round" fill="none"/><path d="M118 368 C146 378 176 380 202 375" stroke="#F7F1E1" stroke-width="6" stroke-linecap="round" fill="none"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="AgroAI Advisor">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#14503C"/>
+      <stop offset="1" stop-color="#0B2A1F"/>
+    </linearGradient>
+    <clipPath id="tile"><rect width="64" height="64" rx="16"/></clipPath>
+  </defs>
+  <g clip-path="url(#tile)">
+    <rect width="64" height="64" fill="url(#sky)"/>
+    <!-- the sun comes up behind the sprout -->
+    <circle cx="32" cy="41" r="18" fill="#F2B532"/>
+    <circle cx="32" cy="41" r="18" fill="none" stroke="#FFD66B" stroke-width="1.5" opacity=".55"/>
+    <!-- red soil: a single furrow line that also hides the lower sun -->
+    <path d="M0 45 C 12 40.5 24 50 38 45.5 S 58 41.5 64 43.5 V 64 H 0 Z" fill="#C8553D"/>
+    <path d="M0 52 C 14 47.5 26 57 40 52.5 S 58 49.5 64 51" fill="none" stroke="#9E3F2B" stroke-width="2" stroke-linecap="round" opacity=".8"/>
+    <!-- sprout: stem and two leaves -->
+    <path d="M32 47 V 27" stroke="#F7F1E1" stroke-width="3" stroke-linecap="round"/>
+    <path d="M32 37 C 23.5 36.5 18 31 18 22.5 C 26.5 22.5 32 28 32 37 Z" fill="#3BB273"/>
+    <path d="M32 31 C 39.5 29.5 45 24 45 15.5 C 37 16.5 32 22 32 31 Z" fill="#52CE8D"/>
+    <path d="M32 37 C 29 32.5 25 28.5 20 25.5" fill="none" stroke="#0F3D2E" stroke-width="1.2" stroke-linecap="round" opacity=".45"/>
   </g>
 </svg>

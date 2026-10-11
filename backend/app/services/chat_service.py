@@ -4,17 +4,28 @@ from app.schemas.chat import ChatRequest, ChatResponse
 from app.schemas.common import LOW_CONFIDENCE, Escalate, Language
 from app.services.diagnose_service import LOW_CONFIDENCE_REASON
 from app.services.session_store import Session, SessionStore
-from app.weather.provider import WeatherProvider, advice_for
+from app.weather.provider import WeatherProvider, forecast_and_advice
 
 # Spraying, planting, harvesting, drying and rain questions depend on the forecast.
 TIME_SENSITIVE = (
     "spray", "plant", "harvest", "dry", "drying", "rain", "fertili", "weed", "when should", "wetin time", "which time", "water",
+)
+# Questions about the weather itself: answered from the real forecast numbers, never from a guess.
+WEATHER_WORDS = (
+    "weather", "forecast", "temperature", "degree", "hot", "cold", "heat", "sun", "sunny", "cloud", "storm", "thunder",
+    "wind", "flood", "humid", "harmattan", "tomorrow", "tonight", "today", "this week", "next week", "weekend",
+    "morning", "evening", "wetin dey happen", "rain dey", "e go rain", "go rain", "umbrella", "climate", "dry season",
 )
 
 
 def is_time_sensitive(message: str) -> bool:
     msg = message.lower()
     return any(w in msg for w in TIME_SENSITIVE)
+
+
+def is_weather_question(message: str) -> bool:
+    msg = message.lower()
+    return any(w in msg for w in WEATHER_WORDS)
 
 
 class ChatService:
@@ -38,11 +49,14 @@ class ChatService:
             session.lat, session.lon = req.lat, req.lon  # rounded by the model validator
         session.language = req.language
 
-        advice = await advice_for(self.weather, lat, lon, crop) if is_time_sensitive(req.message) else None
+        # The forecast is cached for 30 minutes per place, so asking for it is cheap. The AI is handed the real numbers
+        # whenever the question touches the weather, and the advice rules for timing questions.
+        wants_weather = is_time_sensitive(req.message) or is_weather_question(req.message)
+        forecast, advice = await forecast_and_advice(self.weather, lat, lon, crop) if wants_weather else (None, None)
         farmer = await self.accounts.context(user_id) if self.accounts else None
         answer = await self.vision.chat(ChatInput(
             message=req.message, language=req.language, crop=crop, diagnosis=session.diagnosis,
-            history=list(session.history), weather=advice, farmer=farmer,
+            history=list(session.history), weather=advice, farmer=farmer, forecast=forecast,
         ))
         if answer.confidence < LOW_CONFIDENCE and not answer.escalate.recommended and session.diagnosis is not None:
             answer.escalate = Escalate(recommended=True, reason=LOW_CONFIDENCE_REASON[req.language])

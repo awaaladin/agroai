@@ -153,7 +153,9 @@
     "symptomsHint": "For example: the leaves dey turn yellow",
     "send": "Check this photo",
     "cropped": "Photo don ready",
-    "badFile": "I no fit open that photo. Abeg try another one."
+    "badFile": "I no fit open that photo. Abeg try another one.",
+    "otherCrop": "E no dey for the list? Write your crop",
+    "otherHint": "Like: okra, groundnut, garden egg"
   },
   "checking": {
     "title": "I dey look your crop",
@@ -193,10 +195,10 @@
     "title": "Ask question",
     "placeholder": "Type your question here",
     "send": "Send",
-    "hold": "Hold make you talk",
+    "hold": "Hold am make you talk",
     "listening": "I dey hear you",
     "typeInstead": "Voice no dey work for this phone. Abeg type your question.",
-    "empty": "Ask me about your crops, pests, planting, or weather.",
+    "empty": "Ask me about your crops, pests, when to plant, or weather.",
     "you": "You",
     "advisor": "Advisor",
     "thinking": "I dey think",
@@ -206,15 +208,20 @@
       "My leaves dey turn yellow. Wetin I go check?",
       "I fit spray my crop today?",
       "Which time good to plant?"
-    ]
+    ],
+    "newChat": "New chat",
+    "past": "Old conversations",
+    "pastNone": "No old conversation yet. Dem go show here after you don chat.",
+    "messages": "{count} messages",
+    "resumed": "We don open the old talk. Continue from where you stop."
   },
   "weather": {
     "title": "Weather for my farm",
     "now": "Now",
     "forecast": "Next 5 days",
-    "meaning": "Wetin this mean for your farm today",
+    "meaning": "Wetin this weather mean for your farm today",
     "hear": "Hear am",
-    "noLocation": "I need to know your town make I check weather.",
+    "noLocation": "I need to know where you dey make I check the weather.",
     "pickTown": "Choose your town",
     "rain": "Chance of rain",
     "wind": "Wind",
@@ -260,7 +267,7 @@
   },
   "guide": {
     "title": "How to use AgroAI Advisor",
-    "lead": "This page go show you wetin each part of the website dey do and how you go take use am, step by step.",
+    "lead": "This page go show you wetin each part of the website dey do and how to use am, one by one.",
     "banner": {
       "title": "You be new here?",
       "body": "Read small guide wey go show you wetin AgroAI Advisor fit do and how to use am.",
@@ -270,7 +277,7 @@
       "title": "How to start",
       "s1": {
         "t": "Open your dashboard",
-        "b": "As you log in, you go land for your dashboard. E dey show your recent crop checks, today weather and the crops wey you dey grow."
+        "b": "As you log in, you go land for your dashboard. You go see the crop checks wey you don do, today weather and the crops wey you dey plant."
       },
       "s2": {
         "t": "Tell am about your farm",
@@ -278,34 +285,34 @@
       },
       "s3": {
         "t": "Check crop or ask question",
-        "b": "Press \"Check crop\" to send photo, or \"Ask question\" to type or talk."
+        "b": "Press \"Check crop\" to send picture, or \"Ask question\" to type or talk."
       },
       "s4": {
         "t": "Follow the steps, or ask person",
-        "b": "Read wetin to do. If e serious, or I no sure, send the summary give extension officer."
+        "b": "Read wetin to do. If wahala big or I no sure, send the summary give extension officer."
       }
     },
     "features": {
       "title": "Wetin each part dey do",
       "check": {
         "t": "Check crop",
-        "b": "Choose the crop, snap the leaf or plant wey dey worry you, then add small word about wetin you see. You go see wetin I see, why I think so, how sure I be, and wetin to do."
+        "b": "Choose the crop, snap the leaf or plant wey dey worry you, and add small word about wetin you see. You go see wetin I see, why I think so, how I sure reach, and wetin to do."
       },
       "ask": {
         "t": "Ask question",
-        "b": "Type your question, or hold the microphone button and talk. Ask about pest, planting, or whether you fit spray today. You fit correct the words before you send."
+        "b": "Type your question, or hold the microphone button and talk. Ask about pest, planting, or if you fit spray today. You fit correct the words before you send am."
       },
       "weather": {
         "t": "Weather",
-        "b": "Choose your town to see the weather now and for the next 5 days, with simple note on wetin e mean for your farm."
+        "b": "Use your location or choose your town to see weather now and for the next 5 days, with simple talk on wetin e mean for your farm."
       },
       "farm": {
         "t": "About your farm",
-        "b": "For the dashboard, add your crops and notes. We dey remember your saved checks and recent chat, so the advice go be about your farm, no be farms in general."
+        "b": "For the dashboard, add your crops and notes. I dey remember your saved checks and recent chat, so the advice go be for your own farm."
       },
       "account": {
         "t": "My account",
-        "b": "Change the text size, the colour, and whether make answers dey read for mouth. You fit also delete your history or your whole account."
+        "b": "Change how big letters go be, the colour, and whether make answers dey read for mouth. You fit also delete your history or your whole account."
       },
       "language": {
         "t": "Language",
@@ -324,15 +331,15 @@
     },
     "read": {
       "title": "How to read the answer",
-      "body": "\"How sure I be\" dey tell you how much you fit trust am: Sure, Fairly sure or Not sure. \"Wetin fit change my mind\" dey list things wey you go check for your farm. Start with the cheap steps under \"Wetin to do\". E no dey give chemical dose: always follow the label and your extension officer."
+      "body": "\"How I sure be\" dey show how much you fit trust the answer: Sure, Fairly sure or Not sure. \"Wetin fit change my mind\" na things wey you fit check for your farm. Start with the cheap steps for \"Wetin to do\". I no dey give chemical measure: follow the label and your extension officer."
     },
     "limits": {
       "title": "Wetin you must remember",
-      "body": "E fit wrong, and e no fit touch your plants or test your soil. If the plants dey worse quick-quick, or plenty dey affected, go see extension officer."
+      "body": "I fit make mistake, and I no fit touch your plants or test your soil. If the plants dey worse fast, or plenty of dem don catch am, go meet extension officer."
     },
     "privacy": {
       "title": "Your privacy",
-      "body": "We no dey save your photos. Your account dey keep your crop checks (the answer only) and your recent chat, and nobody else no fit see them. You fit delete them any time for My account."
+      "body": "We no dey keep your photos. Your account dey keep the answers for your crop checks and your recent chat, and nobody else no fit see dem. You fit delete dem any time for My account."
     },
     "go": {
       "check": "Check crop now",
@@ -341,45 +348,45 @@
   },
   "landing": {
     "eyebrow": "Farm advice for Akwa Ibom",
-    "title": "Clear and correct help for your farm, for English or Pidgin.",
-    "lead": "Take photo of sick leaf, ask question with your voice or type am, and get advice wey fit your weather and your crops. If I no sure, I go talk am and send you go extension officer.",
-    "cta": "Create free account",
+    "title": "Correct farm help wey you go understand, for English or Pidgin.",
+    "lead": "Snap picture of the leaf wey dey sick, ask your question with mouth or type am, and you go get advice wey match your weather and your crops. If I no too sure, I go tell you true, and I go talk make you see extension officer.",
+    "cta": "Open free account",
     "guest": "Try am without account",
-    "haveAccount": "I don get account",
+    "haveAccount": "I don already get account",
     "how": {
       "title": "How e dey work",
       "s1": {
-        "t": "Take photo",
-        "b": "Take photo of the leaf or plant wey dey worry you. Add small word about wetin you see."
+        "t": "Snap the leaf",
+        "b": "Snap the leaf or plant wey dey worry you. Add small word about wetin you see."
       },
       "s2": {
-        "t": "Reason dey, no be only verdict",
+        "t": "I go show you reason, no be only answer",
         "b": "You go see wetin I see, why I think so, how I sure reach, and wetin fit change my mind."
       },
       "s3": {
-        "t": "Act, or ask person",
-        "b": "Follow simple steps wey start with cheap ways. If e serious or I no sure, send the summary give extension officer."
+        "t": "Do am, or ask person",
+        "b": "Follow the easy steps wey no cost money first. If wahala big or I no sure, send the summary go meet extension officer."
       }
     },
     "example": {
       "label": "Example of answer",
       "problem": "Cassava mosaic sickness",
       "sure": "I fairly sure (82%)",
-      "see": "Twist leaves with pale yellow and green patches, and the plant small pass the ones near am.",
-      "step": "Comot the worst plants today, burn or bury dem, so white flies no go carry the virus go other plants.",
-      "note": "Na example of how e dey look, no be real farmer result."
+      "see": "Leaf dey twist, e get pale yellow and green patches, and the plant small pass the ones wey dey near am.",
+      "step": "Pull the worst plants comot today, burn or bury dem, so whitefly no go carry the sickness go the other plants.",
+      "note": "Na example of how answer dey look. No be real farmer own."
     },
     "crops": {
       "title": "Crops wey I sabi well",
-      "body": "Cassava, yam, maize, plantain, cocoyam and pepper, with the pests and sicknesses wey common for Akwa Ibom. For other crops, I go give general advice and tell you say I sabi less."
+      "body": "Cassava, yam, maize, plantain, cocoyam and pepper, plus the pests and sickness wey dey common for Akwa Ibom. For other crops, I go give general advice and tell you say I no sabi am reach."
     },
     "remember": {
       "title": "Advice wey sabi your farm",
-      "body": "If you get account, I go remember your town, the crops wey you dey grow, and wetin happen before, so the advice go be for your farm. We no dey save your photos, and you fit delete everything any time."
+      "body": "If you open account, I go remember your town, the crops wey you dey plant, and wetin don happen before, so the advice go be for your own farm. We no dey keep your photos, and you fit delete everything any time."
     },
     "honest": {
       "title": "Wetin I no fit do",
-      "body": "I fit make mistake. I no fit touch your plants or test your soil. For animal, health, money or law matter, abeg see correct professional. I no go ever give chemical dose: always follow the label and your extension officer."
+      "body": "I fit make mistake. I no fit touch your plant or test your soil. For animal, body health, money or law matter, abeg go meet the correct person. I no go ever give you chemical measure: always follow the label and wetin extension officer talk."
     },
     "facts": {
       "crops": "crops wey e sabi well",
@@ -391,11 +398,11 @@
   "auth": {
     "loginTitle": "Log in",
     "registerTitle": "Create your account",
-    "phone": "Phone number",
+    "phone": "Your phone number",
     "phoneHint": "For example 0803 123 4567",
     "pin": "PIN",
-    "pinHint": "4 to 6 numbers wey you go remember",
-    "name": "Your name (you fit skip)",
+    "pinHint": "4 to 6 numbers wey you go no forget",
+    "name": "Your name (you fit leave am)",
     "town": "Town wey near you",
     "townPick": "Choose your town",
     "useLocation": "Use my location",
@@ -407,68 +414,73 @@
     "working": "Wait small",
     "noAccount": "You never get account?",
     "hasAccount": "You don get account?",
-    "pinNote": "We no fit send your PIN by SMS or email if you forget am. Write am keep for safe place.",
+    "pinNote": "If you forget your PIN, we no fit send am by SMS or email. Write am down keep for safe place.",
     "welcome": "Welcome, {name}.",
     "welcomeBack": "Welcome back, {name}.",
     "bye": "You don log out.",
-    "locating": "I dey find your area",
-    "located": "I don save your location.",
-    "invalidPhone": "Abeg enter Nigerian phone number like 0803 123 4567.",
-    "invalidPin": "Your PIN must be 4 to 6 numbers."
+    "locating": "I dey find where you dey",
+    "located": "I don see where you dey.",
+    "invalidPhone": "Abeg put correct Nigerian phone number, like 0803 123 4567.",
+    "invalidPin": "PIN must be 4 to 6 numbers."
   },
   "dash": {
     "title": "Your farm",
     "hello": "{greeting}, {name}",
     "helloGuest": "{greeting}",
     "sub": "Wetin you wan do today?",
-    "recent": "Recent crop checks",
-    "none": "You never check any crop. Take your first photo and e go show here.",
+    "recent": "Crop checks wey you don do",
+    "none": "You never check any crop. Snap your first photo and e go show here.",
     "date": "Date",
     "crop": "Crop",
     "problem": "Wetin I see",
-    "sure": "How sure",
+    "sure": "How I sure",
     "officer": "Officer",
     "yes": "Sent",
     "open": "Open",
     "weatherToday": "Weather today",
     "farm": "About your farm",
-    "farmSub": "I dey use this make the advice fit your farm.",
-    "crops": "Crops wey you dey grow",
+    "farmSub": "I dey use this one make the advice fit your farm.",
+    "crops": "Crops wey you dey plant",
     "addCrop": "Add crop",
     "notes": "Notes about your farm",
-    "notesHint": "For example: sandy soil near river, I plant for March",
+    "notesHint": "Like: sandy soil near river, I plant for March",
     "save": "Save",
     "saved": "I don save am.",
     "remembers": "Wetin I remember",
-    "remembersBody": "{count} crop checks wey I save and our recent talk. We no dey keep photos.",
+    "remembersBody": "{count} crop checks wey I don save and our last talk. We no dey keep photos.",
     "viewAll": "See all",
     "guestTitle": "You dey use the app as guest",
-    "guestBody": "Create free account and I go remember your town, your crops and the checks wey you don do, so my advice go be for your farm.",
+    "guestBody": "Open free account make I remember your town, your crops and the checks wey you don do, so my advice go be for your farm.",
     "checksTotal": "{count} checks don save",
-    "lastCheck": "Last check {date}"
+    "lastCheck": "Last check {date}",
+    "typeCrop": "Write your crop, like okra",
+    "addBtn": "Add am",
+    "cropHave": "You don already put that crop for your list.",
+    "cropMax": "You fit keep up to 10 crops. Remove one before you add another.",
+    "conversations": "Old conversations"
   },
   "account": {
     "title": "My account",
     "profile": "Profile",
     "phone": "Phone number",
     "display": "Voice and screen",
-    "autoRead": "Read answers aloud by itself",
-    "sound": "Sounds",
-    "haptics": "Vibration",
-    "textSize": "Size of letters",
+    "autoRead": "Make answer dey read by itself",
+    "sound": "Sound",
+    "haptics": "Phone shake",
+    "textSize": "How big letters go be",
     "theme": "Colour",
     "light": "Light",
     "dark": "Dark",
     "contrast": "Strong contrast",
-    "reduceMotion": "Reduce movement",
-    "screenReader": "I dey use screen reader (no talk by itself)",
+    "reduceMotion": "Make things no dey move plenty",
+    "screenReader": "I dey use screen reader (no make am talk by itself)",
     "small": "Normal",
     "medium": "Big",
     "large": "Biggest",
     "privacy": "Privacy",
-    "privacyBody": "We no dey save your photos. Your account dey keep your profile, your crop checks (the answer only) and your recent chat. Nobody else fit see dem.",
+    "privacyBody": "We no dey keep your photos. Your account dey keep your profile, the answers for your crop checks and your recent chat. Nobody else fit see dem.",
     "clearHistory": "Delete my history",
-    "clearConfirm": "Delete all your saved checks and chat? Your account go still dey.",
+    "clearConfirm": "Delete all the checks and chat wey you save? Your account go still dey.",
     "deleteAccount": "Delete my account",
     "deleteConfirm": "Delete your account and everything wey dem save with am? You no fit bring am back.",
     "cleared": "We don delete your history.",
@@ -476,7 +488,7 @@
     "confirm": "Yes, delete am",
     "cancel": "No, cancel",
     "privacyPromise": "Hear the privacy promise",
-    "privacySpoken": "We no dey save your photos. If you get account, I dey keep your checks and chat so I fit help you better. You fit delete everything any time you want.",
+    "privacySpoken": "We no dey keep your photos. If you get account, I dey keep your checks and chat so I fit help you well. You fit delete everything any time you want.",
     "tiny": "Small"
   },
   "history": {

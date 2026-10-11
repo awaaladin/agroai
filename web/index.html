@@ -66,14 +66,23 @@
   </head>
   <body>
     <div id="boot" role="status" aria-label="Loading AgroAI Advisor">
-      <svg viewBox="0 0 120 120" aria-hidden="true" focusable="false">
-        <circle class="b-sun" cx="60" cy="56" r="27"/>
-        <path class="b-line b-soil" pathLength="1" d="M10 96 C 30 87 48 101 70 93 C 88 86 100 91 110 93"/>
-        <path class="b-line b-stem" pathLength="1" d="M60 94 V 50"/>
-        <path class="b-leaf b-l1" d="M60 68 C 44 66 33 55 33 41 C 49 41 60 52 60 68 Z"/>
-        <path class="b-leaf b-l2" d="M60 60 C 73 56 85 45 85 29 C 70 31 60 44 60 60 Z"/>
+      <svg viewBox="0 0 140 140" aria-hidden="true" focusable="false">
+        <defs><clipPath id="boot-clip"><circle cx="70" cy="70" r="58"/></clipPath></defs>
+        <circle class="e e-ring" pathLength="1" cx="70" cy="70" r="60"/>
+        <g clip-path="url(#boot-clip)">
+          <path class="e e-sun" pathLength="1" d="M36 92 A 34 34 0 0 1 104 92"/>
+          <path class="e e-f e-f1" pathLength="1" d="M6 92 C 28 85 46 99 70 92 S 114 85 134 92"/>
+          <path class="e e-f e-f2" pathLength="1" d="M6 104 C 28 97 46 111 70 104 S 114 97 134 104"/>
+          <path class="e e-f e-f3" pathLength="1" d="M6 116 C 28 109 46 123 70 116 S 114 109 134 116"/>
+        </g>
+        <path class="e-fill" d="M70 78 C 57 78 49 69 49 56 C 62 56 70 65 70 78 Z"/>
+        <path class="e-fill" d="M70 70 C 83 68 91 59 91 46 C 78 47 70 57 70 70 Z"/>
+        <path class="e e-stem" pathLength="1" d="M70 92 V 52"/>
+        <path class="e e-leaf" pathLength="1" d="M70 78 C 57 78 49 69 49 56 C 62 56 70 65 70 78 Z"/>
+        <path class="e e-leaf" pathLength="1" d="M70 70 C 83 68 91 59 91 46 C 78 47 70 57 70 70 Z"/>
       </svg>
-      <p class="b-word">AgroAI <span>Advisor</span></p>
+      <p class="b-word"><b>AgroAI</b> Advisor</p>
+      <span class="b-rule" aria-hidden="true"></span>
       <p class="b-tag">Farm advice in English or Pidgin</p>
     </div>
     <a class="skip-link" href="#main">Skip to content</a>
@@ -86,10 +95,10 @@
       <p style="padding:2rem">AgroAI Advisor needs JavaScript to work. Please turn it on in your browser settings.</p>
     </noscript>
     <script>
-      // Boot screen timing: stays at least ~1.3 s so the seedling can finish growing, then fades out when the first
+      // Boot screen timing: stays at least ~1.9 s so the seedling can finish growing, then fades out when the first
       // page has rendered. Skipped on in-app navigation (already seen this session) unless the page was reloaded.
       (function () {
-        var d = document.documentElement, boot = document.getElementById('boot'), t0 = Date.now(), MIN = 1300, left = false;
+        var d = document.documentElement, boot = document.getElementById('boot'), t0 = Date.now(), MIN = 1900, left = false;
         var nav = window.performance && performance.getEntriesByType && performance.getEntriesByType('navigation')[0];
         var seen = false;
         try { seen = sessionStorage.getItem('agroai.booted') === '1'; } catch (e) {}

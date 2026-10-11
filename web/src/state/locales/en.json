@@ -153,7 +153,9 @@
     "symptomsHint": "For example: leaves are turning yellow",
     "send": "Check this photo",
     "cropped": "Photo ready",
-    "badFile": "I could not open that photo. Please try another one."
+    "badFile": "I could not open that photo. Please try another one.",
+    "otherCrop": "Not in the list? Type your crop",
+    "otherHint": "For example: okra, groundnut, garden egg"
   },
   "checking": {
     "title": "Looking at your crop",
@@ -206,7 +208,12 @@
       "My leaves are turning yellow. What should I check?",
       "Can I spray my crop today?",
       "When is a good time to plant?"
-    ]
+    ],
+    "newChat": "New chat",
+    "past": "Past conversations",
+    "pastNone": "No past conversations yet. They appear here after you chat.",
+    "messages": "{count} messages",
+    "resumed": "Conversation reopened. Carry on where you stopped."
   },
   "weather": {
     "title": "Weather for my farm",
@@ -445,7 +452,12 @@
     "guestTitle": "You are using the app as a guest",
     "guestBody": "Create a free account and I will remember your town, your crops and past checks, so my advice is about your farm.",
     "checksTotal": "{count} checks saved",
-    "lastCheck": "Last check {date}"
+    "lastCheck": "Last check {date}",
+    "typeCrop": "Type your crop, for example okra",
+    "addBtn": "Add",
+    "cropHave": "That crop is already in your list.",
+    "cropMax": "You can keep up to 10 crops. Remove one to add another.",
+    "conversations": "Past conversations"
   },
   "account": {
     "title": "My account",

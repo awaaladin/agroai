@@ -8,7 +8,7 @@ from pydantic import BaseModel
 from app.api.deps import get_accounts
 from app.core.rate_limit import limit
 from app.core.security import current_user
-from app.schemas.accounts import CheckSummary, Profile, ProfileUpdate
+from app.schemas.accounts import ChatTurn, CheckSummary, ConversationSummary, Profile, ProfileUpdate
 from app.schemas.diagnose import DiagnoseResponse
 from app.services.accounts import AccountService
 
@@ -54,6 +54,22 @@ async def delete_check(check_id: str, user_id: Annotated[str, Depends(current_us
                        accounts: Annotated[AccountService, Depends(get_accounts)]) -> Response:
     await accounts.delete_check(user_id, check_id)
     return Response(status_code=204)
+
+
+@router.get("/chats", response_model=list[ConversationSummary])
+async def chats(user_id: Annotated[str, Depends(current_user)], accounts: Annotated[AccountService, Depends(get_accounts)],
+                limit_: Annotated[int, Query(alias="limit", ge=1, le=50)] = 20) -> list[ConversationSummary]:
+    """Past conversations (newest first), so a farmer can read one again and carry on."""
+    return await accounts.list_conversations(user_id, limit_)
+
+
+@router.get("/chats/{conversation_id}", response_model=list[ChatTurn])
+async def chat_conversation(conversation_id: int, user_id: Annotated[str, Depends(current_user)],
+                            accounts: Annotated[AccountService, Depends(get_accounts)]) -> list[ChatTurn]:
+    turns = await accounts.get_conversation(user_id, conversation_id)
+    if turns is None:
+        raise HTTPException(404, "I could not find that conversation.")
+    return turns
 
 
 @router.delete("/history", status_code=204)

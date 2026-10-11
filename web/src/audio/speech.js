@@ -85,7 +85,23 @@ export function speak(text, { interrupt = false, auto = false } = {}) {
   const s = settings.get();
   if (!synth || !text || (auto && (!s.autoRead || s.screenReader))) return Promise.resolve();
   if (interrupt) stop();
-  return new Promise((resolve) => { queue.push({ text, resolve }); next(); });
+  const say = s.language === 'pcm' ? pidginForSpeech(text) : text;
+  return new Promise((resolve) => { queue.push({ text: say, resolve }); next(); });
+}
+
+/**
+ * No browser ships a Pidgin voice, so an English voice reads Pidgin spellings with English letter sounds ("dey"
+ * becomes "dee", "wey" becomes "wee"). Respell the common words the way they are said, only for the voice: what is
+ * shown on screen is never changed.
+ */
+const SPOKEN = [
+  [/\bdey\b/gi, 'day'], [/\bwey\b/gi, 'way'], [/\bwetin\b/gi, 'weh-tin'], [/\bna\b/gi, 'nah'], [/\babeg\b/gi, 'ah-beg'],
+  [/\bwahala\b/gi, 'wah-hah-lah'], [/\bsabi\b/gi, 'sah-bee'], [/\bcomot\b/gi, 'ko-mot'], [/\buna\b/gi, 'oo-nah'],
+  [/\bwan\b/gi, 'wahn'], [/\bpikin\b/gi, 'pee-kin'], [/\boga\b/gi, 'oh-gah'], [/\babi\b/gi, 'ah-bee'], [/\bshey\b/gi, 'shay'],
+  [/\bsef\b/gi, 'seff'], [/\bdem\b/gi, 'dem'], [/\be\b/gi, 'eh'], [/\bo\b(?=[.,!?]|$)/g, 'oh'],
+];
+export function pidginForSpeech(text) {
+  return SPOKEN.reduce((out, [re, to]) => out.replace(re, to), String(text));
 }
 
 export function stop() {

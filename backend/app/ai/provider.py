@@ -5,7 +5,7 @@ from dataclasses import dataclass, field
 from app.schemas.chat import ChatAnswer
 from app.schemas.common import Language
 from app.schemas.diagnose import Diagnosis, PhotoRejected
-from app.schemas.weather import AdviceItem
+from app.schemas.weather import AdviceItem, Forecast
 
 
 @dataclass
@@ -28,6 +28,7 @@ class ChatInput:
     history: list[dict] = field(default_factory=list)  # [{"role": "farmer"|"advisor", "text": ...}]
     weather: list[AdviceItem] | None = None
     farmer: object | None = None  # accounts.FarmerContext for logged-in farmers
+    forecast: Forecast | None = None  # the real forecast numbers, when the farmer asks about the weather
 
 
 class ProviderError(Exception):

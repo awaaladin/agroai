@@ -5,7 +5,7 @@ import { settings } from '../state/store.js';
 import { currentUser, isLoggedIn } from '../api/auth.js';
 import { saveProfile, logout } from '../state/account.js';
 import { clearMyHistory, deleteMyAccount } from '../api/endpoints.js';
-import { TOWNS, detect } from '../device/location.js';
+import { TOWNS, detect, placeName } from '../device/location.js';
 import { mountVoicePicker } from '../ui/components/voice-picker.js';
 import { friendlyError } from '../ui/components/friendly.js';
 import { speak } from '../audio/speech.js';
@@ -115,7 +115,13 @@ export function render(host) {
     });
     $('#locate').addEventListener('click', async () => {
       status(t('auth.locating'));
-      try { const c = await detect(); await saveProfile({ town: '', lat: c.lat, lon: c.lon }); $('#town').value = ''; status(t('auth.located')); }
+      try {
+        const c = await detect();
+        const place = await placeName(c); // "Uyo, Akwa Ibom" from the real position, or the nearest known town
+        await saveProfile({ town: place, lat: c.lat, lon: c.lon });
+        $('#town').value = '';
+        status(place ? `${t('auth.located')} ${place}` : t('auth.located'));
+      }
       catch { status(t('errors.location')); }
     });
 
