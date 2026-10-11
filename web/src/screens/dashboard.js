@@ -38,6 +38,14 @@ export function render(host) {
         <p class="reveal text-ink-soft" style="--i:1">${loc?.town ? `${esc(loc.town)} · ` : ''}${t('dash.sub')}</p>
       </header>
 
+      <a class="action-card reveal flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between sm:gap-4" style="--i:1" href="#/guide">
+        <span class="flex items-center gap-4">
+          <span class="flex h-12 w-12 flex-none items-center justify-center rounded-leaf bg-surface-2 text-[2rem]">${icons.book()}</span>
+          <span><span class="block text-h3 font-bold">${t('guide.banner.title')}</span><span class="block text-ink-soft">${t('guide.banner.body')}</span></span>
+        </span>
+        <span class="link flex-none">${t('guide.banner.cta')}</span>
+      </a>
+
       <nav class="grid gap-4 md:grid-cols-3" aria-label="${t('dash.title')}">
         ${actions.map((a, i) => `
           <a class="action-card reveal flex items-center gap-4" style="--i:${i + 2}" href="#${a.to}" data-to="${a.to}">
@@ -89,11 +97,11 @@ export function render(host) {
           <thead><tr><th>${t('dash.date')}</th><th>${t('dash.crop')}</th><th>${t('dash.problem')}</th><th>${t('dash.sure')}</th><th>${t('dash.officer')}</th></tr></thead>
           <tbody>${rows.map((r) => `
             <tr tabindex="0" data-id="${r.id}" role="link" aria-label="${t('dash.open')}: ${esc(r.problem)}">
-              <td class="whitespace-nowrap">${fmtDate(r.created_at)}</td>
-              <td><span class="flex items-center gap-2"><span class="text-[1.6rem]">${cropIcon[r.crop] || ''}</span>${esc(t(`crops.${r.crop}`) !== `crops.${r.crop}` ? t(`crops.${r.crop}`) : r.crop)}</span></td>
-              <td class="font-bold">${esc(r.problem)}</td>
-              <td class="whitespace-nowrap">${t(`result.${confidenceWord(r.confidence)}`)}</td>
-              <td>${r.escalate ? `<span class="chip">${t('dash.yes')}</span>` : ''}</td>
+              <td class="whitespace-nowrap" data-label="${t('dash.date')}">${fmtDate(r.created_at)}</td>
+              <td data-label="${t('dash.crop')}"><span class="flex items-center gap-2"><span class="text-[1.6rem]">${cropIcon[r.crop] || ''}</span>${esc(t(`crops.${r.crop}`) !== `crops.${r.crop}` ? t(`crops.${r.crop}`) : r.crop)}</span></td>
+              <td class="font-bold" data-label="${t('dash.problem')}">${esc(r.problem)}</td>
+              <td class="whitespace-nowrap" data-label="${t('dash.sure')}">${t(`result.${confidenceWord(r.confidence)}`)}</td>
+              <td data-label="${t('dash.officer')}">${r.escalate ? `<span class="chip">${t('dash.yes')}</span>` : ''}</td>
             </tr>`).join('')}</tbody></table></div>`;
       $('#history').querySelectorAll('tbody tr').forEach((tr) => {
         const open = async () => {

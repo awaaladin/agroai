@@ -21,7 +21,32 @@ function links() {
     { to: '/check', label: t('nav.check') },
     { to: '/chat', label: t('nav.ask') },
     { to: '/weather', label: t('nav.weather') },
+    { to: '/guide', label: t('nav.guide') },
   ];
+}
+
+// Phone-style bottom tab bar (small screens only): the four things farmers do, within thumb reach.
+function renderTabbar() {
+  let bar = document.getElementById('tabbar');
+  if (!inApp()) { bar?.remove(); document.body.classList.remove('has-tabbar'); return; }
+  if (!bar) {
+    bar = document.createElement('nav');
+    bar.id = 'tabbar';
+    bar.className = 'tabbar';
+    document.body.appendChild(bar);
+  }
+  const path = currentPath();
+  const tabs = [
+    { to: '/dashboard', icon: 'home', label: t('nav.dashboard') },
+    { to: '/check', icon: 'crop', label: t('nav.check') },
+    { to: '/chat', icon: 'question', label: t('nav.ask') },
+    { to: '/weather', icon: 'weather', label: t('nav.weather') },
+    { to: '/guide', icon: 'book', label: t('nav.guide') },
+  ];
+  bar.setAttribute('aria-label', t('nav.menu'));
+  bar.innerHTML = tabs.map((x) =>
+    `<a href="#${x.to}" ${path === x.to ? 'aria-current="page"' : ''}><span class="tab-icon">${icons[x.icon]()}</span><span class="tab-label">${esc(x.label)}</span></a>`).join('');
+  document.body.classList.add('has-tabbar');
 }
 
 function renderHeader(el) {
@@ -43,27 +68,29 @@ function renderHeader(el) {
       <a class="flex items-center gap-3 no-underline" href="#${inApp() ? '/dashboard' : '/'}" aria-label="AgroAI Advisor">
         ${logoMark()}<span class="text-h3 font-bold">AgroAI <span class="text-leaf-ink">Advisor</span></span>
       </a>
-      <details class="relative md:hidden" id="menu">
+      <details class="relative lg:hidden" id="menu">
         <summary class="btn btn-ghost cursor-pointer list-none" aria-label="${t('nav.menu')}">${t('nav.menu')}</summary>
         <div class="absolute right-0 z-20 mt-2 flex w-72 flex-col gap-2 rounded-seed border border-line bg-surface p-3 shadow-lg">
-          ${nav}<div class="flex gap-2">${langToggle}</div>${account}
+          ${nav}<div class="flex gap-2">${langToggle}</div>
+          <button type="button" class="btn btn-ghost" data-theme-toggle aria-label="${t('nav.theme')}" aria-pressed="${dark}">${dark ? 'Light' : 'Dark'}</button>
+          ${account}
         </div>
       </details>
-      <div class="hidden flex-wrap items-center gap-2 md:flex">
+      <div class="hidden flex-wrap items-center gap-2 lg:flex">
         ${nav}<div class="flex gap-1" role="group" aria-label="${t('nav.language')}">${langToggle}</div>
-        <button type="button" class="btn btn-ghost" id="theme" aria-label="${t('nav.theme')}" aria-pressed="${dark}">${dark ? 'Light' : 'Dark'}</button>
+        <button type="button" class="btn btn-ghost" data-theme-toggle aria-label="${t('nav.theme')}" aria-pressed="${dark}">${dark ? 'Light' : 'Dark'}</button>
         ${account}
       </div>
     </div>`;
 
   el.querySelectorAll('[data-lang]').forEach((b) => b.addEventListener('click', () => {
     settings.set({ language: b.dataset.lang });
-    renderHeader(el); renderFooter(document.getElementById('site-footer')); reload();
+    renderHeader(el); renderFooter(document.getElementById('site-footer')); renderTabbar(); reload();
   }));
-  el.querySelector('#theme')?.addEventListener('click', () => {
+  el.querySelectorAll('[data-theme-toggle]').forEach((b) => b.addEventListener('click', () => {
     settings.set({ theme: dark ? 'light' : 'dark' });
     renderHeader(el);
-  });
+  }));
   el.querySelectorAll('#logout').forEach((b) => b.addEventListener('click', async () => {
     const { logout } = await import('../state/account.js');
     logout();
@@ -85,10 +112,10 @@ function renderFooter(el) {
 export function mountShell() {
   const header = document.getElementById('site-header');
   const footer = document.getElementById('site-footer');
-  const refresh = () => { renderHeader(header); renderFooter(footer); };
+  const refresh = () => { renderHeader(header); renderFooter(footer); renderTabbar(); };
   refresh();
-  window.addEventListener('hashchange', () => renderHeader(header));
+  window.addEventListener('hashchange', () => { renderHeader(header); renderTabbar(); });
   onAuthChange(refresh);
-  settings.subscribe((s) => { if (s.guest !== undefined) renderHeader(header); });
+  settings.subscribe((s) => { if (s.guest !== undefined) { renderHeader(header); renderTabbar(); } });
   return refresh;
 }

@@ -248,12 +248,64 @@
     "menu": "Menu",
     "language": "Language",
     "theme": "Change colour",
-    "skip": "Skip go content"
+    "skip": "Skip go content",
+    "guide": "How to use am"
   },
   "footer": {
     "line": "AgroAI Advisor dey help the farmer. E no dey replace extension officer.",
     "privacy": "We no dey save photos. You fit delete your information any time.",
     "built": "We build am for farmers for Akwa Ibom, Nigeria."
+  },
+  "guide": {
+    "title": "How to use AgroAI Advisor",
+    "lead": "This page go show you wetin each part of the website dey do and how you go take use am, step by step.",
+    "banner": {
+      "title": "You be new here?",
+      "body": "Read small guide wey go show you wetin AgroAI Advisor fit do and how to use am.",
+      "cta": "How to use this website"
+    },
+    "start": {
+      "title": "How to start",
+      "s1": { "t": "Open your dashboard", "b": "As you log in, you go land for your dashboard. E dey show your recent crop checks, today weather and the crops wey you dey grow." },
+      "s2": { "t": "Tell am about your farm", "b": "For \"About your farm\", add the crops wey you dey grow and small note. The advisor dey use am make the advice fit your farm." },
+      "s3": { "t": "Check crop or ask question", "b": "Press \"Check crop\" to send photo, or \"Ask question\" to type or talk." },
+      "s4": { "t": "Follow the steps, or ask person", "b": "Read wetin to do. If e serious, or I no sure, send the summary give extension officer." }
+    },
+    "features": {
+      "title": "Wetin each part dey do",
+      "check": { "t": "Check crop", "b": "Choose the crop, snap the leaf or plant wey dey worry you, then add small word about wetin you see. You go see wetin I see, why I think so, how sure I be, and wetin to do." },
+      "ask": { "t": "Ask question", "b": "Type your question, or hold the microphone button and talk. Ask about pest, planting, or whether you fit spray today. You fit correct the words before you send." },
+      "weather": { "t": "Weather", "b": "Choose your town to see the weather now and for the next 5 days, with simple note on wetin e mean for your farm." },
+      "farm": { "t": "About your farm", "b": "For the dashboard, add your crops and notes. We dey remember your saved checks and recent chat, so the advice go be about your farm, no be farms in general." },
+      "account": { "t": "My account", "b": "Change the text size, the colour, and whether make answers dey read for mouth. You fit also delete your history or your whole account." },
+      "language": { "t": "Language", "b": "Use the English and Pidgin buttons for top of the page to change language any time." }
+    },
+    "photo": {
+      "title": "How to snap good photo",
+      "tips": [
+        "Come close, make the leaf full the picture.",
+        "Hold your phone steady and use good daylight.",
+        "Snap the part wey dey worry you, no snap the whole farm.",
+        "If the photo blur, snap another one. I go tell you if I need clearer one.",
+        "Add small word like \"leaves dey turn yellow\". E dey help."
+      ]
+    },
+    "read": {
+      "title": "How to read the answer",
+      "body": "\"How sure I be\" dey tell you how much you fit trust am: Sure, Fairly sure or Not sure. \"Wetin fit change my mind\" dey list things wey you go check for your farm. Start with the cheap steps under \"Wetin to do\". E no dey give chemical dose: always follow the label and your extension officer."
+    },
+    "limits": {
+      "title": "Wetin you must remember",
+      "body": "E fit wrong, and e no fit touch your plants or test your soil. If the plants dey worse quick-quick, or plenty dey affected, go see extension officer."
+    },
+    "privacy": {
+      "title": "Your privacy",
+      "body": "We no dey save your photos. Your account dey keep your crop checks (the answer only) and your recent chat, and nobody else no fit see them. You fit delete them any time for My account."
+    },
+    "go": {
+      "check": "Check crop now",
+      "ask": "Ask question"
+    }
   },
   "landing": {
     "eyebrow": "Farm advice for Akwa Ibom",

@@ -248,12 +248,64 @@
     "menu": "Menu",
     "language": "Language",
     "theme": "Switch colour theme",
-    "skip": "Skip to content"
+    "skip": "Skip to content",
+    "guide": "How to use"
   },
   "footer": {
     "line": "AgroAI Advisor supports the farmer. It does not replace an extension officer.",
     "privacy": "Photos are never stored. You can delete your information at any time.",
     "built": "Built for farmers in Akwa Ibom, Nigeria."
+  },
+  "guide": {
+    "title": "How to use AgroAI Advisor",
+    "lead": "This page explains what each part of the website does and how to use it, step by step.",
+    "banner": {
+      "title": "New here?",
+      "body": "Read a short guide to what AgroAI Advisor can do and how to use it.",
+      "cta": "How to use this website"
+    },
+    "start": {
+      "title": "Getting started",
+      "s1": { "t": "Open your dashboard", "b": "After you log in you land on your dashboard. It shows your recent crop checks, today's weather and the crops you grow." },
+      "s2": { "t": "Tell it about your farm", "b": "Under \"About your farm\", add the crops you grow and a short note. The advisor uses this to make its advice fit your farm." },
+      "s3": { "t": "Check a crop or ask a question", "b": "Tap \"Check a crop\" to send a photo, or \"Ask a question\" to type or speak." },
+      "s4": { "t": "Follow the steps, or ask a person", "b": "Read what to do. If it is serious, or I am not sure, send the summary to an extension officer." }
+    },
+    "features": {
+      "title": "What each part does",
+      "check": { "t": "Check a crop", "b": "Choose the crop, take a photo of the leaf or plant that worries you, and add a few words about what you noticed. You get what I see, why I think so, how sure I am, and what to do." },
+      "ask": { "t": "Ask a question", "b": "Type your question, or hold the microphone button and speak. Ask about pests, planting, or whether you can spray today. You can fix the words before you send." },
+      "weather": { "t": "Weather", "b": "Choose your town to see the weather now and for the next 5 days, with a plain note on what it means for your farm." },
+      "farm": { "t": "About your farm", "b": "On the dashboard, add your crops and notes. Saved checks and recent chats are remembered, so the advice is about your farm and not farms in general." },
+      "account": { "t": "My account", "b": "Change the text size, colour theme, and whether answers are read aloud. You can also delete your history or your whole account." },
+      "language": { "t": "Language", "b": "Use the English and Pidgin buttons at the top of the page to switch language at any time." }
+    },
+    "photo": {
+      "title": "Taking a good photo",
+      "tips": [
+        "Come close, so the leaf fills the picture.",
+        "Hold the phone steady and use good daylight.",
+        "Photograph the part that worries you, not the whole field.",
+        "If the photo is blurry, take another. I will tell you if I need a clearer one.",
+        "Add a few words, such as \"leaves are turning yellow\". It helps."
+      ]
+    },
+    "read": {
+      "title": "How to read an answer",
+      "body": "\"How sure I am\" tells you how much to trust it: Sure, Fairly sure or Not sure. \"What could change my mind\" lists things to check on your farm. Start with the low-cost steps under \"What to do\". It never gives a chemical dose: always follow the product label and your extension officer."
+    },
+    "limits": {
+      "title": "What to keep in mind",
+      "body": "It can be wrong, and it cannot touch your plants or test your soil. If the plants are getting worse quickly, or many are affected, see an extension officer."
+    },
+    "privacy": {
+      "title": "Your privacy",
+      "body": "Your photos are never stored. Your account keeps your crop checks (the answer only) and your recent chat, and nobody else can see them. You can delete them at any time in My account."
+    },
+    "go": {
+      "check": "Check a crop now",
+      "ask": "Ask a question"
+    }
   },
   "landing": {
     "eyebrow": "Farm advice for Akwa Ibom",

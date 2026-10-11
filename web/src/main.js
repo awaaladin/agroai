@@ -16,6 +16,7 @@ route('/result', () => import('./screens/result.js'));
 route('/chat', () => import('./screens/chat.js'));
 route('/weather', () => import('./screens/weather.js'));
 route('/account', () => import('./screens/account.js'));
+route('/guide', () => import('./screens/guide.js'));
 route('*', () => import('./screens/landing.js'));
 
 // Public pages anyone can open; everything else needs an account or "continue as a guest".

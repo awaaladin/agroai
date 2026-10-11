@@ -150,4 +150,53 @@ main:focus, main:focus-visible { outline: none; }
   .table-wrap tr:last-child td { border-bottom: 0; }
   .table-wrap tbody tr { cursor: pointer; }
   .table-wrap tbody tr:hover { background: rgb(var(--c-surface-2)); }
+
+  /* Phone-style bottom tab bar: only below the desktop breakpoint, only when signed in or a guest. */
+  .tabbar {
+    position: fixed; inset: auto 0 0 0; z-index: 40; display: flex;
+    background: rgb(var(--c-surface)); border-top: 1px solid rgb(var(--c-line));
+    padding-bottom: env(safe-area-inset-bottom);
+    box-shadow: 0 -2px 8px rgb(var(--c-ink) / 0.06);
+  }
+  .tabbar a {
+    flex: 1 1 0; min-width: 0; min-height: 3.5rem; display: flex; flex-direction: column; align-items: center;
+    justify-content: center; gap: 0.1rem; padding: 0.4rem 0.15rem; text-decoration: none; color: rgb(var(--c-ink-soft));
+    font-weight: 700; -webkit-tap-highlight-color: transparent;
+  }
+  .tabbar .tab-icon { font-size: 1.6rem; line-height: 1; }
+  .tabbar .tab-label { font-size: 0.8rem; line-height: 1.15; text-align: center; overflow-wrap: anywhere; }
+  .tabbar a[aria-current='page'] { color: rgb(var(--c-ink)); box-shadow: inset 0 3px 0 rgb(var(--c-leaf)); background: rgb(var(--c-surface-2)); }
 }
+
+/* Room for the tab bar so it never covers the footer or the last button. */
+body.has-tabbar { padding-bottom: calc(4.75rem + env(safe-area-inset-bottom)); }
+@media (min-width: 1024px) {
+  .tabbar { display: none; }
+  body.has-tabbar { padding-bottom: 0; }
+}
+
+/* Notched phones in landscape: keep content out of the cut-outs (viewport-fit=cover is set in index.html). */
+.page, .page-narrow {
+  padding-left: max(1.25rem, env(safe-area-inset-left));
+  padding-right: max(1.25rem, env(safe-area-inset-right));
+}
+
+/* Small phones: tighter cards, and the history table becomes a list of cards. */
+@media (max-width: 639px) {
+  .card { padding: 1.1rem; }
+  .table-wrap { border: 0; background: transparent; overflow: visible; }
+  .table-wrap table, .table-wrap tbody, .table-wrap tr, .table-wrap td { display: block; width: 100%; }
+  .table-wrap thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+  .table-wrap tbody tr {
+    margin-bottom: 0.75rem; padding: 0.4rem 0.2rem; border: 1px solid rgb(var(--c-line)); border-radius: 1rem;
+    background: rgb(var(--c-surface));
+  }
+  .table-wrap td { display: flex; justify-content: space-between; gap: 1rem; border-bottom: 0; padding: 0.4rem 0.9rem; }
+  .table-wrap td::before { content: attr(data-label); color: rgb(var(--c-ink-soft)); font-weight: 400; flex: none; }
+  .table-wrap td:empty { display: none; }
+}
+
+/* Never let a long word or an image push the page sideways on a phone. */
+img, svg, video, canvas { max-width: 100%; }
+h1, h2, h3, p, li, td { overflow-wrap: anywhere; }
+
