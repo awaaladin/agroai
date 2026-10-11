@@ -102,8 +102,8 @@ export const isSpeaking = () => !!current || !!synth?.speaking;
 /** Subscribe to 'speaking' | 'paused' | 'idle' (the Sprout and the Listen buttons follow this). */
 export function onSpeechState(fn) { stateListeners.add(fn); return () => stateListeners.delete(fn); }
 
-// Stop talking when the page is hidden or closed.
+// Keep talking when the farmer switches tabs or apps (they may be reading another page or walking the farm while
+// the answer plays). Only stop when the page itself is closed or left.
 if (typeof document !== 'undefined') {
-  document.addEventListener('visibilitychange', () => { if (document.hidden) stop(); });
   window.addEventListener('pagehide', stop);
 }

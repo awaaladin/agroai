@@ -35,6 +35,15 @@ export function setGuard(fn) { guard = fn; }
 /** Re-render the current page (after a language change, for example). */
 export function reload() { if (hostEl) show(hostEl); }
 
+// Direction-aware motion: going back to the page you came from slides the other way, like a real app.
+const visited = [];
+function directionFor(path) {
+  if (visited.length >= 2 && visited[visited.length - 2] === path) { visited.pop(); return 'back'; }
+  if (visited[visited.length - 1] !== path) visited.push(path);
+  if (visited.length > 30) visited.shift();
+  return 'forward';
+}
+
 async function show(host) {
   const token = ++navToken;
   const path = currentPath();
@@ -42,9 +51,13 @@ async function show(host) {
   if (redirect && redirect !== path) { go(redirect, { replace: true }); return; }
   const loader = routes.get(path) || routes.get('*');
   if (!loader) return;
+  const root = document.documentElement;
+  root.dataset.nav = directionFor(path);
+  root.dataset.loading = '1'; // a thin progress line appears only if the page takes a moment (see main.css)
   let mod;
-  try { mod = await loader(); } catch { host.textContent = 'Could not load this page. Please reload.'; return; }
+  try { mod = await loader(); } catch { delete root.dataset.loading; host.textContent = 'Could not load this page. Please reload.'; return; }
   if (token !== navToken) return; // a newer navigation won
+  delete root.dataset.loading;
 
   const swap = () => {
     cleanup?.();
@@ -56,6 +69,7 @@ async function show(host) {
     host.focus({ preventScroll: true });
     const title = host.querySelector('h1')?.textContent;
     if (title) document.title = `${title}: AgroAI Advisor`;
+    document.dispatchEvent(new Event('route:rendered')); // the boot screen leaves on the first one
   };
 
   if (document.startViewTransition) {

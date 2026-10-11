@@ -1,6 +1,7 @@
 // Chat: press-and-hold the mic to speak, or type. The transcript is shown, answers are spoken and shown, follow-up
 // suggestions are tappable chips, and the conversation continues from the crop check when there is one.
 import { t, tList } from '../state/i18n.js';
+import { qs } from '../ui/safe-dom.js';
 import { settings } from '../state/store.js';
 import { speak, stop } from '../audio/speech.js';
 import { listen, recognitionSupported } from '../audio/recognition.js';
@@ -35,7 +36,7 @@ export function render(host) {
       </form>
     </div>`;
 
-  const $ = (s) => host.querySelector(s);
+  const $ = qs(host);
   const log = $('#log');
   let busy = false;
   let listening = false;

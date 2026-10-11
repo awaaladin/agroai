@@ -2,6 +2,7 @@
 // a giant shutter, and a gallery fallback. The photo is compressed and re-encoded on the device (1280 px, JPEG 85),
 // which also strips EXIF and GPS, then sent for checking on the Analyzing screen.
 import { t, tList } from '../state/i18n.js';
+import { qs } from '../ui/safe-dom.js';
 import { settings } from '../state/store.js';
 import { speak, stop } from '../audio/speech.js';
 import { earcon } from '../audio/earcons.js';
@@ -54,7 +55,7 @@ export function render(host) {
       </label>
     </div>`;
 
-  const $ = (s) => host.querySelector(s);
+  const $ = qs(host);
   const video = $('#video');
   const shutter = $('#shutter');
   const tips = tList('check.tips');

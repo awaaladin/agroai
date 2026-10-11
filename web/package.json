@@ -10,7 +10,8 @@
     "contrast": "node scripts/contrast.mjs",
     "audit": "node scripts/audit.mjs",
     "flow": "node scripts/flow-check.mjs",
-    "features": "node scripts/features-check.mjs"
+    "features": "node scripts/features-check.mjs",
+    "buttons": "node scripts/buttons-check.mjs"
   },
   "devDependencies": {
     "autoprefixer": "^10.6.1",

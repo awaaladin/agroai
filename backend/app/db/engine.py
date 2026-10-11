@@ -3,11 +3,20 @@
     DATABASE_URL=sqlite+aiosqlite:///./agroai.db                       (default)
     DATABASE_URL=postgresql://user:pass@host:5432/dbname?sslmode=require   (Neon, Supabase, Render, ...)
 """
+import re
 import uuid
 from urllib.parse import parse_qsl, urlencode, urlsplit, urlunsplit
 
 from sqlalchemy.pool import NullPool, StaticPool
 from sqlalchemy.ext.asyncio import AsyncEngine, AsyncSession, async_sessionmaker, create_async_engine
+
+
+def validate_schema(name: str) -> str:
+    """The Postgres schema for our tables. Validated because it is used in DDL; shared-database schemas are refused."""
+    name = (name or "").strip()
+    if not re.fullmatch(r"[a-z_][a-z0-9_]{0,62}", name) or name in {"public", "drizzle", "pg_catalog", "information_schema"}:
+        raise ValueError("DATABASE_SCHEMA must be a lower-case name and must not be public or drizzle")
+    return name
 
 
 def normalize_url(url: str) -> str:
@@ -49,7 +58,15 @@ class Database:
             kwargs = {"poolclass": StaticPool}  # one shared connection, or the in-memory database would vanish
         else:
             kwargs = {"poolclass": NullPool}  # SQLite file connections are cheap and this stays safe across event loops
-        self.engine: AsyncEngine = create_async_engine(self.url, **kwargs)
+        from app.core.config import get_settings
+
+        self.schema: str | None = None
+        engine = create_async_engine(self.url, **kwargs)
+        if self.url.startswith("postgresql"):
+            # Every table lives in our own schema; other apps sharing the database are never touched.
+            self.schema = validate_schema(get_settings().database_schema)
+            engine = engine.execution_options(schema_translate_map={None: self.schema})
+        self.engine: AsyncEngine = engine
         self.session_factory = async_sessionmaker(self.engine, expire_on_commit=False)
         self._ready = False
 
@@ -69,11 +86,10 @@ class Database:
         from app.knowledge import reload_knowledge
 
         from sqlalchemy import text
-        from app.db.models import SCHEMA
 
         async with self.engine.begin() as conn:
-            if SCHEMA:  # Postgres: our own schema, created if missing. We never touch other schemas.
-                await conn.execute(text(f'CREATE SCHEMA IF NOT EXISTS "{SCHEMA}"'))
+            if self.schema:  # Postgres: our own schema, created if missing. We never touch other schemas.
+                await conn.execute(text(f'CREATE SCHEMA IF NOT EXISTS "{self.schema}"'))
             await conn.run_sync(Base.metadata.create_all)
         await seed_if_empty(self)
         await reload_knowledge(self)

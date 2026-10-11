@@ -61,6 +61,16 @@ async function toApiError(res) {
  * @param {{method?:string, json?:object, form?:FormData, timeout?:number, signal?:AbortSignal, auth?:boolean}} [opt]
  */
 export async function request(path, opt = {}) {
+  // Saves and deletes show a small "working" pill if they take more than half a second (see ui/fx.js).
+  // Reads, and the AI calls (which have their own screens), are exempt.
+  const track = (opt.method || 'GET') !== 'GET' && !/\/v1\/(chat|diagnose|transcribe|auth\/anon)/.test(path);
+  if (track) window.dispatchEvent(new CustomEvent('api:busy', { detail: 1 }));
+  try { return await doRequest(path, opt); } finally {
+    if (track) window.dispatchEvent(new CustomEvent('api:busy', { detail: -1 }));
+  }
+}
+
+async function doRequest(path, opt = {}) {
   const { method = 'GET', json, form, signal, auth = true } = opt;
   const timeout = opt.timeout ?? TIMEOUTS.default;
   // Only GETs are retried automatically: a retried POST could repeat a paid AI call.

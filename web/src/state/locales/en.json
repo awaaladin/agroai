@@ -249,7 +249,9 @@
     "language": "Language",
     "theme": "Switch colour theme",
     "skip": "Skip to content",
-    "guide": "How to use"
+    "guide": "How to use",
+    "textSmaller": "Smaller text",
+    "textLarger": "Larger text"
   },
   "footer": {
     "line": "AgroAI Advisor supports the farmer. It does not replace an extension officer.",
@@ -266,19 +268,49 @@
     },
     "start": {
       "title": "Getting started",
-      "s1": { "t": "Open your dashboard", "b": "After you log in you land on your dashboard. It shows your recent crop checks, today's weather and the crops you grow." },
-      "s2": { "t": "Tell it about your farm", "b": "Under \"About your farm\", add the crops you grow and a short note. The advisor uses this to make its advice fit your farm." },
-      "s3": { "t": "Check a crop or ask a question", "b": "Tap \"Check a crop\" to send a photo, or \"Ask a question\" to type or speak." },
-      "s4": { "t": "Follow the steps, or ask a person", "b": "Read what to do. If it is serious, or I am not sure, send the summary to an extension officer." }
+      "s1": {
+        "t": "Open your dashboard",
+        "b": "After you log in you land on your dashboard. It shows your recent crop checks, today's weather and the crops you grow."
+      },
+      "s2": {
+        "t": "Tell it about your farm",
+        "b": "Under \"About your farm\", add the crops you grow and a short note. The advisor uses this to make its advice fit your farm."
+      },
+      "s3": {
+        "t": "Check a crop or ask a question",
+        "b": "Tap \"Check a crop\" to send a photo, or \"Ask a question\" to type or speak."
+      },
+      "s4": {
+        "t": "Follow the steps, or ask a person",
+        "b": "Read what to do. If it is serious, or I am not sure, send the summary to an extension officer."
+      }
     },
     "features": {
       "title": "What each part does",
-      "check": { "t": "Check a crop", "b": "Choose the crop, take a photo of the leaf or plant that worries you, and add a few words about what you noticed. You get what I see, why I think so, how sure I am, and what to do." },
-      "ask": { "t": "Ask a question", "b": "Type your question, or hold the microphone button and speak. Ask about pests, planting, or whether you can spray today. You can fix the words before you send." },
-      "weather": { "t": "Weather", "b": "Choose your town to see the weather now and for the next 5 days, with a plain note on what it means for your farm." },
-      "farm": { "t": "About your farm", "b": "On the dashboard, add your crops and notes. Saved checks and recent chats are remembered, so the advice is about your farm and not farms in general." },
-      "account": { "t": "My account", "b": "Change the text size, colour theme, and whether answers are read aloud. You can also delete your history or your whole account." },
-      "language": { "t": "Language", "b": "Use the English and Pidgin buttons at the top of the page to switch language at any time." }
+      "check": {
+        "t": "Check a crop",
+        "b": "Choose the crop, take a photo of the leaf or plant that worries you, and add a few words about what you noticed. You get what I see, why I think so, how sure I am, and what to do."
+      },
+      "ask": {
+        "t": "Ask a question",
+        "b": "Type your question, or hold the microphone button and speak. Ask about pests, planting, or whether you can spray today. You can fix the words before you send."
+      },
+      "weather": {
+        "t": "Weather",
+        "b": "Choose your town to see the weather now and for the next 5 days, with a plain note on what it means for your farm."
+      },
+      "farm": {
+        "t": "About your farm",
+        "b": "On the dashboard, add your crops and notes. Saved checks and recent chats are remembered, so the advice is about your farm and not farms in general."
+      },
+      "account": {
+        "t": "My account",
+        "b": "Change the text size, colour theme, and whether answers are read aloud. You can also delete your history or your whole account."
+      },
+      "language": {
+        "t": "Language",
+        "b": "Use the English and Pidgin buttons at the top of the page to switch language at any time."
+      }
     },
     "photo": {
       "title": "Taking a good photo",
@@ -348,6 +380,12 @@
     "honest": {
       "title": "What it cannot do",
       "body": "It can be wrong. It cannot touch your plants or test your soil. For animals, health, money or legal questions please see the right professional. It will never give a chemical dose: always follow the label and your extension officer."
+    },
+    "facts": {
+      "crops": "crops it knows well",
+      "languages": "languages",
+      "forecast": "day weather forecast",
+      "photos": "photos stored"
     }
   },
   "auth": {
@@ -438,7 +476,8 @@
     "confirm": "Yes, delete",
     "cancel": "Cancel",
     "privacyPromise": "Hear the privacy promise",
-    "privacySpoken": "Your photos are not saved. With an account, I keep your checks and chats so I can help you better. You can delete everything whenever you want."
+    "privacySpoken": "Your photos are not saved. With an account, I keep your checks and chats so I can help you better. You can delete everything whenever you want.",
+    "tiny": "Small"
   },
   "history": {
     "title": "Saved check",

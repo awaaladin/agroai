@@ -1,6 +1,7 @@
 // Analyzing: the logo mark breathes while friendly messages rotate (spoken and written) and a skeleton of
 // the result card waits to fill. An unusable photo gets its spoken advice and a one-tap retake.
 import { t, tList } from '../state/i18n.js';
+import { qs } from '../ui/safe-dom.js';
 import { settings } from '../state/store.js';
 import { speak, stop } from '../audio/speech.js';
 import { earcon } from '../audio/earcons.js';
@@ -26,7 +27,7 @@ export function render(host) {
       </div>
     </div>`;
 
-  const $ = (s) => host.querySelector(s);
+  const $ = qs(host);
   const ctl = new AbortController();
   const messages = tList('analyzing');
   let i = 0;

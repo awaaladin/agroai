@@ -1,38 +1,18 @@
 """Tables. Knowledge (crops, problems, aliases, safety lists, region) is editable data; sessions are short-lived."""
-import re
 from datetime import datetime, timezone
 
 from sqlalchemy import JSON, Boolean, DateTime, ForeignKey, Index, Integer, MetaData, String, Text
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship
 
-from app.core.config import get_settings
 
 
 def utcnow() -> datetime:
     return datetime.now(timezone.utc)
 
 
-def _schema() -> str | None:
-    """The Postgres schema for our tables (None on SQLite). Validated because it is used in DDL."""
-    settings = get_settings()
-    if not settings.database_url.startswith(("postgres://", "postgresql")):
-        return None
-    name = settings.database_schema.strip()
-    if not re.fullmatch(r"[a-z_][a-z0-9_]{0,62}", name) or name in {"public", "drizzle", "pg_catalog", "information_schema"}:
-        raise ValueError("DATABASE_SCHEMA must be a lower-case name and must not be public or drizzle")
-    return name
-
-
-SCHEMA = _schema()
-
-
-def fk(target: str) -> str:
-    """Foreign-key target that includes the schema when there is one: fk('users.id') -> 'agroai.users.id'."""
-    return f"{SCHEMA}.{target}" if SCHEMA else target
-
-
 class Base(DeclarativeBase):
-    metadata = MetaData(schema=SCHEMA)
+    # No schema here on purpose: Database.engine maps it (Postgres only), so SQLite and tests are unaffected.
+    metadata = MetaData()
 
 
 class Region(Base):
@@ -56,7 +36,7 @@ class Crop(Base):
 class CropProblem(Base):
     __tablename__ = "crop_problems"
     id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
-    crop_key: Mapped[str] = mapped_column(ForeignKey(fk("crops.key"), ondelete="CASCADE"), index=True)
+    crop_key: Mapped[str] = mapped_column(ForeignKey("crops.key", ondelete="CASCADE"), index=True)
     position: Mapped[int] = mapped_column(Integer, default=0)
     name: Mapped[str] = mapped_column(String(120))
     type: Mapped[str] = mapped_column(String(40))  # virus, fungus, pest, bacteria...
@@ -71,7 +51,7 @@ class CropAlias(Base):
 
     __tablename__ = "crop_aliases"
     alias: Mapped[str] = mapped_column(String(60), primary_key=True)  # lower case
-    crop_key: Mapped[str] = mapped_column(ForeignKey(fk("crops.key"), ondelete="CASCADE"))
+    crop_key: Mapped[str] = mapped_column(ForeignKey("crops.key", ondelete="CASCADE"))
 
 
 class SafetyTerm(Base):
@@ -119,7 +99,7 @@ class CheckRow(Base):
 
     __tablename__ = "checks"
     id: Mapped[str] = mapped_column(String(36), primary_key=True)
-    user_id: Mapped[str] = mapped_column(ForeignKey(fk("users.id"), ondelete="CASCADE"), index=True)
+    user_id: Mapped[str] = mapped_column(ForeignKey("users.id", ondelete="CASCADE"), index=True)
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow, index=True)
     crop: Mapped[str] = mapped_column(String(40), default="")
     problem: Mapped[str] = mapped_column(String(200), default="")
@@ -134,7 +114,7 @@ class ChatMessageRow(Base):
 
     __tablename__ = "chat_messages"
     id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
-    user_id: Mapped[str] = mapped_column(ForeignKey(fk("users.id"), ondelete="CASCADE"), index=True)
+    user_id: Mapped[str] = mapped_column(ForeignKey("users.id", ondelete="CASCADE"), index=True)
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow, index=True)
     role: Mapped[str] = mapped_column(String(10))  # farmer | advisor
     text: Mapped[str] = mapped_column(Text)

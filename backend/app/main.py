@@ -105,7 +105,7 @@ def create_app(
                        image_paths=("/v1/diagnose", "/v1/transcribe"))
     if settings.origins:
         app.add_middleware(
-            CORSMiddleware, allow_origins=settings.origins, allow_methods=["GET", "POST", "DELETE", "OPTIONS"],
+            CORSMiddleware, allow_origins=settings.origins, allow_methods=["GET", "POST", "PATCH", "DELETE", "OPTIONS"],
             allow_headers=["Authorization", "Content-Type"], expose_headers=["Retry-After", "X-Request-ID"],
             allow_credentials=False, max_age=600,  # bearer tokens, not cookies, so no credentials
         )

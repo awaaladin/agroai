@@ -1,5 +1,6 @@
 // Log in with phone number and PIN. Friendly, spoken-aloud-able errors; lock-out messages come from the server.
 import { t } from '../state/i18n.js';
+import { qs } from '../ui/safe-dom.js';
 import { settings } from '../state/store.js';
 import { signIn } from '../state/account.js';
 import { friendlyError } from '../ui/components/friendly.js';
@@ -23,7 +24,7 @@ export function render(host) {
       </form>
     </div>`;
 
-  const $ = (s) => host.querySelector(s);
+  const $ = qs(host);
   $('#form').addEventListener('submit', async (e) => {
     e.preventDefault();
     const err = $('#error');

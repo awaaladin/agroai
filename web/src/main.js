@@ -3,6 +3,7 @@ import { installRipple } from './ui/components/ripple.js';
 import { route, startRouter, setGuard, go } from './router.js';
 import { mountShell, inApp } from './ui/shell.js';
 import { isLoggedIn } from './api/auth.js';
+import { mountBusy } from './ui/fx.js';
 import './state/store.js';
 
 // Routes are lazy: each screen is its own chunk, loaded only when visited.
@@ -25,6 +26,7 @@ setGuard((path) => (PUBLIC.has(path) || inApp() ? null : '/'));
 
 installRipple();
 mountShell();
+mountBusy();
 
 // Offline banner: a polite live region, not an error page.
 const live = document.getElementById('live');

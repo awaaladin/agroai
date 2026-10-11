@@ -1,6 +1,7 @@
 // Create an account: phone number and PIN, plus the few things that make advice personal (language, town).
 // Location is optional and coarse; a town can be picked instead. Everything is editable later in My account.
 import { t } from '../state/i18n.js';
+import { qs } from '../ui/safe-dom.js';
 import { settings } from '../state/store.js';
 import { signUp } from '../state/account.js';
 import { friendlyError } from '../ui/components/friendly.js';
@@ -41,7 +42,7 @@ export function render(host) {
       </form>
     </div>`;
 
-  const $ = (q) => host.querySelector(q);
+  const $ = qs(host);
   host.querySelectorAll('input[name="lang"]').forEach((r) => r.addEventListener('change', () => {
     settings.set({ language: r.value });
     // re-render in the new language, keeping what was typed

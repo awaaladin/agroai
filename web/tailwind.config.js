@@ -24,12 +24,14 @@ export default {
       fontFamily: { sans: ['"Atkinson Hyperlegible"', 'system-ui', 'sans-serif'] },
       // Fluid sizes. Body at least 20px and headings at least 28px at the default text size; they scale with the
       // user's text-size setting because --text-scale multiplies the root font size.
+      // 18px body on a phone, a touch larger on desktop. The farmer can go smaller or larger in Settings or with the
+      // A- / A+ buttons (they scale the root size, so every rem value moves together).
       fontSize: {
-        body: ['clamp(1.25rem, 1.15rem + 0.5vw, 1.4rem)', { lineHeight: '1.55' }],
-        small: ['clamp(1.05rem, 1rem + 0.2vw, 1.15rem)', { lineHeight: '1.5' }],
-        h3: ['clamp(1.4rem, 1.2rem + 1vw, 1.75rem)', { lineHeight: '1.25' }],
-        h2: ['clamp(1.75rem, 1.4rem + 1.6vw, 2.25rem)', { lineHeight: '1.2' }],
-        h1: ['clamp(2rem, 1.5rem + 2.4vw, 3rem)', { lineHeight: '1.12' }],
+        body: ['clamp(1.0625rem, 1rem + 0.3vw, 1.2rem)', { lineHeight: '1.55' }],
+        small: ['clamp(0.9375rem, 0.9rem + 0.2vw, 1.05rem)', { lineHeight: '1.5' }],
+        h3: ['clamp(1.2rem, 1.1rem + 0.6vw, 1.45rem)', { lineHeight: '1.25' }],
+        h2: ['clamp(1.5rem, 1.25rem + 1.2vw, 2rem)', { lineHeight: '1.2' }],
+        h1: ['clamp(1.85rem, 1.4rem + 2.2vw, 2.9rem)', { lineHeight: '1.1' }],
       },
       borderRadius: { seed: '1rem', pod: '0.75rem', leaf: '0.75rem' },
       transitionTimingFunction: {
@@ -37,8 +39,8 @@ export default {
         spring: 'cubic-bezier(.34, 1.3, .5, 1)',
         'spring-soft': 'cubic-bezier(.2, .9, .25, 1.1)',
       },
-      minHeight: { tap: '3.5rem' }, // 56px touch targets
-      minWidth: { tap: '3.5rem' },
+      minHeight: { tap: '3rem' }, // 48px touch targets
+      minWidth: { tap: '3rem' },
     },
   },
   plugins: [],

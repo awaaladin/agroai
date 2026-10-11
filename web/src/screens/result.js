@@ -1,6 +1,8 @@
 // Result: the spoken answer plays automatically (auto-read), with a plant-growth confidence meter, the reasoning,
 // numbered action cards, prevention, questions to check on the farm, the officer hand-off and "Delete my data".
 import { t } from '../state/i18n.js';
+import { qs } from '../ui/safe-dom.js';
+import { gaugeSvg, runGauge } from '../ui/fx.js';
 import { speak, stop, pause, resume } from '../audio/speech.js';
 import { earcon } from '../audio/earcons.js';
 import { haptic } from '../device/haptics.js';
@@ -43,13 +45,12 @@ export function render(host) {
         </div>
       </header>
 
-      <section class="card flex flex-col gap-3" aria-label="${t('result.confidence')}">
+      <section class="card flex flex-col gap-3 ${low ? 'gauge-low' : ''}" aria-label="${t('result.confidence')}">
         <div class="flex items-baseline justify-between gap-3">
-          <h2>${t('result.confidence')}</h2><span class="text-h3 font-bold ${low ? 'text-clay-ink' : 'text-leaf-ink'}">${word} (${pct}%)</span>
+          <h2>${t('result.confidence')}</h2><span class="text-h3 font-bold ${low ? 'text-clay-ink' : 'text-leaf-ink'}">${word} (<span id="pct" class="tabular-nums">${pct}</span>%)</span>
         </div>
-        <div class="meter" role="meter" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${pct}" aria-valuetext="${word}">
-          <div class="meter-fill" style="--p:${a.confidence}"></div>
-          <svg class="meter-leaf" viewBox="0 0 48 48" aria-hidden="true" style="--p:${a.confidence}"><path d="M6 40 C 6 18 22 6 42 6 C 42 28 28 42 8 42 Z" fill="rgb(var(--c-leaf))" stroke="rgb(var(--c-ink))" stroke-width="2.4"/></svg>
+        <div class="mx-auto w-full max-w-[19rem]" role="meter" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${pct}" aria-valuetext="${word}">
+          ${gaugeSvg(word)}
         </div>
         ${a.alternatives?.length ? `<p class="text-small text-ink-soft">${t('result.alternatives')}: ${a.alternatives.map((x) => esc(x.name)).join(', ')}</p>` : ''}
       </section>
@@ -105,8 +106,12 @@ export function render(host) {
       <button class="mx-auto underline" id="delete" type="button">${work.savedId ? t('history.deleteOne') : t('result.deleteData')}</button>
     </div>`;
 
-  const $ = (s) => host.querySelector(s);
+  const $ = qs(host);
   earcon('ready');
+  // The sun climbs from the horizon to how sure the advisor is.
+  const stopGauge = runGauge(host.querySelector('.gauge'), a.confidence, {
+    onValue: (v) => { $('#pct').textContent = String(Math.round(v * 100)); },
+  });
 
   // The answer is read aloud automatically (auto-read setting), and again on Repeat.
   const intro = setTimeout(() => speak(r.spoken_text, { auto: true }), 500);
@@ -154,5 +159,5 @@ export function render(host) {
     go('/dashboard');
   });
 
-  return () => { clearTimeout(intro); stop(); };
+  return () => { clearTimeout(intro); stop(); stopGauge(); };
 }

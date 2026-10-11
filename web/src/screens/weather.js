@@ -2,6 +2,7 @@
 // today" card built from the backend's deterministic rules, read aloud on tap. The page background shifts gently
 // with the weather and the time of day.
 import { t } from '../state/i18n.js';
+import { qs } from '../ui/safe-dom.js';
 import { settings } from '../state/store.js';
 import { speak, stop } from '../audio/speech.js';
 import { earcon } from '../audio/earcons.js';
@@ -32,7 +33,7 @@ export function render(host) {
         <div class="skeleton h-40"></div><div class="skeleton h-32"></div><div class="skeleton h-40"></div>
       </div>
     </div>`;
-  const $ = (s) => host.querySelector(s);
+  const $ = qs(host);
   const ctl = new AbortController();
 
   if (!loc) {

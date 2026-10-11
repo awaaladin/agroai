@@ -9,7 +9,6 @@ from sqlalchemy import text  # noqa: E402
 
 from app.core.config import get_settings  # noqa: E402
 from app.db.engine import Database  # noqa: E402
-from app.db.models import SCHEMA  # noqa: E402
 
 
 async def snapshot(db):
@@ -27,6 +26,7 @@ async def main() -> int:
         print("DATABASE_URL is not Postgres; nothing to prove.")
         return 0
     before = await snapshot(db)
+    SCHEMA = db.schema
     print("our schema:", SCHEMA)
     await db.ensure_ready()
     after = await snapshot(db)

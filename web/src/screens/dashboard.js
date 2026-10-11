@@ -1,6 +1,7 @@
 // Dashboard: the farmer's home. Greeting, the three things to do, today's weather, recent crop checks (accounts),
 // and "About your farm" (the crops and notes the advisor uses to personalise its advice).
 import { t } from '../state/i18n.js';
+import { qs } from '../ui/safe-dom.js';
 import { settings } from '../state/store.js';
 import { currentUser, isLoggedIn } from '../api/auth.js';
 import { myChecks, myCheck, weatherAdvice } from '../api/endpoints.js';
@@ -33,7 +34,7 @@ export function render(host) {
 
   host.innerHTML = `
     <div class="page flex flex-col gap-8 py-8">
-      <header class="flex flex-col gap-1">
+      <header class="band-dark furrows field-band flex flex-col gap-1">
         <h1 class="reveal">${first ? t('dash.hello', { greeting, name: esc(first) }) : t('dash.helloGuest', { greeting })}</h1>
         <p class="reveal text-ink-soft" style="--i:1">${loc?.town ? `${esc(loc.town)} · ` : ''}${t('dash.sub')}</p>
       </header>
@@ -67,7 +68,7 @@ export function render(host) {
       </div>
     </div>`;
 
-  const $ = (s) => host.querySelector(s);
+  const $ = qs(host);
 
   // ---- Weather today (real forecast, first rule as the headline) ----
   if (loc) {

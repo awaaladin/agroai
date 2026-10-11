@@ -1,5 +1,6 @@
 // My account: profile, voice and display preferences, privacy controls (delete history, delete account).
 import { t } from '../state/i18n.js';
+import { qs } from '../ui/safe-dom.js';
 import { settings } from '../state/store.js';
 import { currentUser, isLoggedIn } from '../api/auth.js';
 import { saveProfile, logout } from '../state/account.js';
@@ -20,7 +21,9 @@ const check = (id, label, on) => `
 export function render(host) {
   const u = currentUser();
   const s = settings.get();
-  const scales = [[1, 'account.small'], [1.25, 'account.medium'], [1.5, 'account.large']];
+  // Small, Normal, Large, Largest. A size saved by an older version snaps to the nearest one.
+  const scales = [[0.85, 'account.tiny'], [1, 'account.small'], [1.2, 'account.medium'], [1.4, 'account.large']];
+  const nearest = scales.reduce((a, b) => (Math.abs(b[0] - s.textScale) < Math.abs(a[0] - s.textScale) ? b : a))[0];
 
   host.innerHTML = `
     <div class="page-narrow flex flex-col gap-6 py-8">
@@ -54,7 +57,7 @@ export function render(host) {
         ${check('haptics', t('account.haptics'), s.haptics)}
         ${check('screenReader', t('account.screenReader'), s.screenReader)}
         <fieldset class="flex flex-col gap-2"><legend class="field-label">${t('account.textSize')}</legend>
-          <div class="flex flex-wrap gap-3">${scales.map(([v, k]) => `<button type="button" class="btn ${s.textScale === v ? 'btn-primary' : 'btn-ghost'}" data-scale="${v}" aria-pressed="${s.textScale === v}">${t(k)}</button>`).join('')}</div>
+          <div class="flex flex-wrap gap-3">${scales.map(([v, k]) => `<button type="button" class="btn ${nearest === v ? 'btn-primary' : 'btn-ghost'}" data-scale="${v}" aria-pressed="${nearest === v}">${t(k)}</button>`).join('')}</div>
         </fieldset>
         <fieldset class="flex flex-col gap-2"><legend class="field-label">${t('account.theme')}</legend>
           <div class="flex flex-wrap gap-3">${['light', 'dark', 'contrast'].map((k) => `<button type="button" class="btn ${s.theme === k ? 'btn-primary' : 'btn-ghost'}" data-theme-set="${k}" aria-pressed="${s.theme === k}">${t(`account.${k}`)}</button>`).join('')}</div>
@@ -84,7 +87,7 @@ export function render(host) {
       </div>
     </div>`;
 
-  const $ = (q) => host.querySelector(q);
+  const $ = qs(host);
   mountVoicePicker($('#voice-picker'));
 
   host.querySelectorAll('[data-lang]').forEach((b) => b.addEventListener('click', async () => {
