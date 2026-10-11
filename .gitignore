@@ -20,3 +20,7 @@ web/tour/
 
 .vercel
 .env*
+
+.claude/
+.agents/
+skills-lock.json
