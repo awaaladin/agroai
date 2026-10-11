@@ -1,0 +1,26 @@
+{
+  "name": "agroai-web",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview --port 4173",
+    "contrast": "node scripts/contrast.mjs",
+    "audit": "node scripts/audit.mjs",
+    "flow": "node scripts/flow-check.mjs",
+    "features": "node scripts/features-check.mjs"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.6.1",
+    "postcss": "^8.5.29",
+    "puppeteer-core": "^25.13.0",
+    "tailwindcss": "^3.4.19",
+    "vite": "^6.4.4"
+  },
+  "dependencies": {
+    "@fontsource/atkinson-hyperlegible": "^5.3.0",
+    "alpinejs": "^3.17.4"
+  }
+}

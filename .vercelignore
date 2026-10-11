@@ -1,0 +1,16 @@
+.env
+.env.*
+*.db
+.venv
+**/.venv
+node_modules
+**/node_modules
+__pycache__
+.pytest_cache
+backend/tests
+backend/scripts
+backend/Dockerfile
+backend/docker-compose.yml
+web/audit
+web/tour
+web/dist

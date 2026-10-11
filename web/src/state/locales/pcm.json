@@ -1,0 +1,397 @@
+{
+  "app": {
+    "name": "AgroAI Advisor",
+    "tagline": "We dey help the farmer"
+  },
+  "common": {
+    "back": "Go back",
+    "next": "Next",
+    "skip": "Skip",
+    "retry": "Try again",
+    "close": "Close",
+    "yes": "Yes",
+    "no": "No",
+    "repeat": "Talk am again",
+    "pause": "Wait small",
+    "listen": "Hear am",
+    "loading": "Wait small",
+    "send": "Send",
+    "delete": "Delete"
+  },
+  "language": {
+    "title": "Choose your language",
+    "english": "English",
+    "pidgin": "Pidgin",
+    "spoken": "You fit change am any time for Settings.",
+    "pick": "Tap your language"
+  },
+  "home": {
+    "greeting": {
+      "morning": "Good morning",
+      "afternoon": "Good afternoon",
+      "evening": "Good evening"
+    },
+    "ask": "How the farm dey today?",
+    "check": "Check my crop",
+    "question": "Ask question",
+    "weather": "Weather for my farm",
+    "where": "Weather for {town}",
+    "setTown": "Choose your town",
+    "tapPlant": "Tap the plant make you hear me",
+    "sproutHello": "{greeting}. Wetin you wan do today? You fit check crop, ask question, or see weather."
+  },
+  "permissions": {
+    "camera": {
+      "title": "Make I see your crop",
+      "why": "I go use the camera only when you take picture of leaf. We no dey save the picture.",
+      "fallback": "No camera? You fit pick photo from your gallery."
+    },
+    "microphone": {
+      "title": "Talk to me",
+      "why": "The microphone dey help you talk your question. You fit still type am.",
+      "fallback": "You fit type your question."
+    },
+    "location": {
+      "title": "Weather for your farm",
+      "why": "Your rough location dey help me check weather where you dey farm. I go keep am for short time only.",
+      "fallback": "Pick the town wey near you, I go use am."
+    },
+    "allow": "Allow",
+    "skip": "No be now",
+    "town": "Pick the town wey near you",
+    "step": "Step {n} for 3",
+    "granted": "Thank you.",
+    "denied": "No wahala. You fit still use the app.",
+    "townTitle": "Pick the town wey near you",
+    "townSaved": "Thank you. I go use {town} for your weather.",
+    "useTown": "Pick town instead",
+    "detecting": "I dey find your area"
+  },
+  "errors": {
+    "network": "Network no dey. Try again small time.",
+    "offline": "You no dey online. To check crop, you need internet.",
+    "timeout": "E dey take too long. Abeg try again.",
+    "server": "Wahala dey my side. Abeg try again soon.",
+    "rate": "You dey ask too fast. Abeg wait {seconds} seconds.",
+    "session": "Your session don end. Abeg start again.",
+    "camera": "I no fit open the camera. You fit pick photo from your gallery.",
+    "mic": "I no fit hear you. Abeg type your question.",
+    "location": "I no fit find where you dey. Abeg pick the town wey near you."
+  },
+  "analyzing": [
+    "I dey look the leaf well well.",
+    "I dey check wetin fit dey wrong.",
+    "I dey think about weather for your farm.",
+    "E don almost ready. Thank you for waiting."
+  ],
+  "speech": {
+    "voice": "Voice",
+    "speed": "How fast I go talk",
+    "test": "Hear sample",
+    "sample": "Hello. Na me be your farm advisor."
+  },
+  "kitchen": {
+    "title": "Kitchen sink",
+    "intro": "Every component and state, for developers."
+  },
+  "sprout": {
+    "idle": "Your plant dey wait",
+    "listening": "I dey hear you",
+    "speaking": "I dey talk",
+    "analyzing": "I dey look your crop",
+    "ready": "Answer don ready"
+  },
+  "splash": {
+    "loading": "I dey ready your farm advisor"
+  },
+  "soon": {
+    "title": "E dey come",
+    "body": "We dey build this part. Abeg come back soon."
+  },
+  "icons": {
+    "camera": "Camera",
+    "mic": "Microphone",
+    "pin": "Location"
+  },
+  "voice": {
+    "title": "Choose voice",
+    "female": "Woman",
+    "male": "Man",
+    "any": "Any one",
+    "best": "Best one for me",
+    "hear": "Hear this voice",
+    "none": "This phone no get voice. You fit still read everything for screen.",
+    "note": "The voice dey come from your phone or browser, so e dey sound different for different phone.",
+    "sample": "Hello. This na how I go sound.",
+    "open": "Voice"
+  },
+  "crops": {
+    "cassava": "Cassava",
+    "yam": "Yam",
+    "maize": "Maize",
+    "plantain": "Plantain",
+    "cocoyam": "Cocoyam",
+    "pepper": "Pepper",
+    "other": "Another crop"
+  },
+  "check": {
+    "title": "Check my crop",
+    "pickCrop": "Which crop be this?",
+    "optional": "You fit skip this one.",
+    "tips": [
+      "Come near the leaf.",
+      "Hold your phone steady.",
+      "Find good light.",
+      "Make the leaf fill the picture."
+    ],
+    "shutter": "Take picture",
+    "gallery": "Pick from gallery",
+    "openCamera": "Open camera",
+    "retake": "Take another photo",
+    "noCamera": "The camera no dey work. Abeg pick photo from your gallery.",
+    "symptoms": "You see anything? (you fit skip)",
+    "symptomsHint": "For example: the leaves dey turn yellow",
+    "send": "Check this photo",
+    "cropped": "Photo don ready",
+    "badFile": "I no fit open that photo. Abeg try another one."
+  },
+  "checking": {
+    "title": "I dey look your crop",
+    "slow": "E dey take small more time. Thank you for waiting.",
+    "retakeTitle": "I need clearer picture",
+    "failed": "I no fit check this photo."
+  },
+  "result": {
+    "title": "Wetin I see",
+    "confidence": "How I sure reach",
+    "sure": "I sure",
+    "fairly": "I fairly sure",
+    "notSure": "I no too sure",
+    "see": "Wetin I see",
+    "why": "Why I think so",
+    "change": "Wetin fit change my mind",
+    "actions": "Wetin to do",
+    "prevention": "How to stop am make e no come back",
+    "questions": "Abeg check these ones for your farm",
+    "weatherNote": "About the weather",
+    "today": "Today",
+    "this_week": "This week",
+    "next_season": "Next season",
+    "send": "Send am to extension officer",
+    "preparing": "I dey prepare your message",
+    "copied": "Message don copy. Paste am for WhatsApp or SMS.",
+    "askAbout": "Ask about this",
+    "newPhoto": "New photo",
+    "deleteData": "Delete my data",
+    "deleted": "We don delete your information.",
+    "escalate": "Abeg show this to extension officer.",
+    "alternatives": "E fit also be",
+    "privacy": "We no save your photo. We go keep your answer for 30 minutes unless you delete am.",
+    "done": "I don do am"
+  },
+  "chat": {
+    "title": "Ask question",
+    "placeholder": "Type your question here",
+    "send": "Send",
+    "hold": "Hold make you talk",
+    "listening": "I dey hear you",
+    "typeInstead": "Voice no dey work for this phone. Abeg type your question.",
+    "empty": "Ask me about your crops, pests, planting, or weather.",
+    "you": "You",
+    "advisor": "Advisor",
+    "thinking": "I dey think",
+    "suggest": "Tap one question",
+    "heard": "I hear you. You fit fix the words before you send.",
+    "starters": [
+      "My leaves dey turn yellow. Wetin I go check?",
+      "I fit spray my crop today?",
+      "Which time good to plant?"
+    ]
+  },
+  "weather": {
+    "title": "Weather for my farm",
+    "now": "Now",
+    "forecast": "Next 5 days",
+    "meaning": "Wetin this mean for your farm today",
+    "hear": "Hear am",
+    "noLocation": "I need to know your town make I check weather.",
+    "pickTown": "Choose your town",
+    "rain": "Chance of rain",
+    "wind": "Wind",
+    "high": "High",
+    "low": "Low",
+    "updated": "Weather for {town}",
+    "cond": {
+      "clear": "Sun dey shine",
+      "partly": "Small cloud",
+      "cloudy": "Cloud dey",
+      "fog": "Fog dey",
+      "drizzle": "Small rain",
+      "rain": "Rain dey fall",
+      "showers": "Rain showers",
+      "storm": "Thunder and rain"
+    }
+  },
+  "errors2": {
+    "offlineCheck": "To check crop, you need internet. Abeg connect and try again."
+  },
+  "nav": {
+    "home": "Home",
+    "dashboard": "Dashboard",
+    "check": "Check crop",
+    "ask": "Ask question",
+    "weather": "Weather",
+    "account": "My account",
+    "login": "Log in",
+    "register": "Create account",
+    "logout": "Log out",
+    "menu": "Menu",
+    "language": "Language",
+    "theme": "Change colour",
+    "skip": "Skip go content"
+  },
+  "footer": {
+    "line": "AgroAI Advisor dey help the farmer. E no dey replace extension officer.",
+    "privacy": "We no dey save photos. You fit delete your information any time.",
+    "built": "We build am for farmers for Akwa Ibom, Nigeria."
+  },
+  "landing": {
+    "eyebrow": "Farm advice for Akwa Ibom",
+    "title": "Clear and correct help for your farm, for English or Pidgin.",
+    "lead": "Take photo of sick leaf, ask question with your voice or type am, and get advice wey fit your weather and your crops. If I no sure, I go talk am and send you go extension officer.",
+    "cta": "Create free account",
+    "guest": "Try am without account",
+    "haveAccount": "I don get account",
+    "how": {
+      "title": "How e dey work",
+      "s1": {
+        "t": "Take photo",
+        "b": "Take photo of the leaf or plant wey dey worry you. Add small word about wetin you see."
+      },
+      "s2": {
+        "t": "Reason dey, no be only verdict",
+        "b": "You go see wetin I see, why I think so, how I sure reach, and wetin fit change my mind."
+      },
+      "s3": {
+        "t": "Act, or ask person",
+        "b": "Follow simple steps wey start with cheap ways. If e serious or I no sure, send the summary give extension officer."
+      }
+    },
+    "example": {
+      "label": "Example of answer",
+      "problem": "Cassava mosaic sickness",
+      "sure": "I fairly sure (82%)",
+      "see": "Twist leaves with pale yellow and green patches, and the plant small pass the ones near am.",
+      "step": "Comot the worst plants today, burn or bury dem, so white flies no go carry the virus go other plants.",
+      "note": "Na example of how e dey look, no be real farmer result."
+    },
+    "crops": {
+      "title": "Crops wey I sabi well",
+      "body": "Cassava, yam, maize, plantain, cocoyam and pepper, with the pests and sicknesses wey common for Akwa Ibom. For other crops, I go give general advice and tell you say I sabi less."
+    },
+    "remember": {
+      "title": "Advice wey sabi your farm",
+      "body": "If you get account, I go remember your town, the crops wey you dey grow, and wetin happen before, so the advice go be for your farm. We no dey save your photos, and you fit delete everything any time."
+    },
+    "honest": {
+      "title": "Wetin I no fit do",
+      "body": "I fit make mistake. I no fit touch your plants or test your soil. For animal, health, money or law matter, abeg see correct professional. I no go ever give chemical dose: always follow the label and your extension officer."
+    }
+  },
+  "auth": {
+    "loginTitle": "Log in",
+    "registerTitle": "Create your account",
+    "phone": "Phone number",
+    "phoneHint": "For example 0803 123 4567",
+    "pin": "PIN",
+    "pinHint": "4 to 6 numbers wey you go remember",
+    "name": "Your name (you fit skip)",
+    "town": "Town wey near you",
+    "townPick": "Choose your town",
+    "useLocation": "Use my location",
+    "language": "Language",
+    "show": "Show PIN",
+    "hide": "Hide PIN",
+    "submitLogin": "Log in",
+    "submitRegister": "Create account",
+    "working": "Wait small",
+    "noAccount": "You never get account?",
+    "hasAccount": "You don get account?",
+    "pinNote": "We no fit send your PIN by SMS or email if you forget am. Write am keep for safe place.",
+    "welcome": "Welcome, {name}.",
+    "welcomeBack": "Welcome back, {name}.",
+    "bye": "You don log out.",
+    "locating": "I dey find your area",
+    "located": "I don save your location.",
+    "invalidPhone": "Abeg enter Nigerian phone number like 0803 123 4567.",
+    "invalidPin": "Your PIN must be 4 to 6 numbers."
+  },
+  "dash": {
+    "title": "Your farm",
+    "hello": "{greeting}, {name}",
+    "helloGuest": "{greeting}",
+    "sub": "Wetin you wan do today?",
+    "recent": "Recent crop checks",
+    "none": "You never check any crop. Take your first photo and e go show here.",
+    "date": "Date",
+    "crop": "Crop",
+    "problem": "Wetin I see",
+    "sure": "How sure",
+    "officer": "Officer",
+    "yes": "Sent",
+    "open": "Open",
+    "weatherToday": "Weather today",
+    "farm": "About your farm",
+    "farmSub": "I dey use this make the advice fit your farm.",
+    "crops": "Crops wey you dey grow",
+    "addCrop": "Add crop",
+    "notes": "Notes about your farm",
+    "notesHint": "For example: sandy soil near river, I plant for March",
+    "save": "Save",
+    "saved": "I don save am.",
+    "remembers": "Wetin I remember",
+    "remembersBody": "{count} crop checks wey I save and our recent talk. We no dey keep photos.",
+    "viewAll": "See all",
+    "guestTitle": "You dey use the app as guest",
+    "guestBody": "Create free account and I go remember your town, your crops and the checks wey you don do, so my advice go be for your farm.",
+    "checksTotal": "{count} checks don save",
+    "lastCheck": "Last check {date}"
+  },
+  "account": {
+    "title": "My account",
+    "profile": "Profile",
+    "phone": "Phone number",
+    "display": "Voice and screen",
+    "autoRead": "Read answers aloud by itself",
+    "sound": "Sounds",
+    "haptics": "Vibration",
+    "textSize": "Size of letters",
+    "theme": "Colour",
+    "light": "Light",
+    "dark": "Dark",
+    "contrast": "Strong contrast",
+    "reduceMotion": "Reduce movement",
+    "screenReader": "I dey use screen reader (no talk by itself)",
+    "small": "Normal",
+    "medium": "Big",
+    "large": "Biggest",
+    "privacy": "Privacy",
+    "privacyBody": "We no dey save your photos. Your account dey keep your profile, your crop checks (the answer only) and your recent chat. Nobody else fit see dem.",
+    "clearHistory": "Delete my history",
+    "clearConfirm": "Delete all your saved checks and chat? Your account go still dey.",
+    "deleteAccount": "Delete my account",
+    "deleteConfirm": "Delete your account and everything wey dem save with am? You no fit bring am back.",
+    "cleared": "We don delete your history.",
+    "deleted": "We don delete your account.",
+    "confirm": "Yes, delete am",
+    "cancel": "No, cancel",
+    "privacyPromise": "Hear the privacy promise",
+    "privacySpoken": "We no dey save your photos. If you get account, I dey keep your checks and chat so I fit help you better. You fit delete everything any time you want."
+  },
+  "history": {
+    "title": "Check wey I save",
+    "deleteOne": "Delete this check",
+    "deleted": "I don delete the check.",
+    "saved": "Saved on {date}"
+  }
+}

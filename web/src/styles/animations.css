@@ -1,0 +1,131 @@
+/* Motion language (see docs/design-and-motion-guide.md).
+   Rules: transform and opacity only, eased and slow, nothing flashes, nothing faster than ~3 Hz.
+   Reduced motion: the OS setting OR the in-app switch (html[data-motion="reduce"]) turns movement into
+   instant changes and static brightness shifts. Information is always present. */
+
+:root {
+  --spring: cubic-bezier(.34, 1.3, .5, 1);
+  --spring-soft: cubic-bezier(.2, .9, .25, 1.1);
+}
+
+/* ---- Reveal on entry: rises with a small overshoot, staggered by --i (about 60ms per item) ---- */
+.reveal {
+  opacity: 0;
+  transform: translateY(10px);
+  animation: rise 500ms var(--spring-soft) forwards;
+  animation-delay: calc(var(--i, 0) * 60ms + 60ms);
+}
+@keyframes rise { to { opacity: 1; transform: none; } }
+
+/* ---- Page transitions: View Transitions when available, otherwise a fade-slide ---- */
+/* The transition overlay must never swallow a tap made while it plays. */
+::view-transition { pointer-events: none; }
+::view-transition-group(*), ::view-transition-image-pair(*), ::view-transition-old(*), ::view-transition-new(*) { pointer-events: none; }
+::view-transition-old(root) { animation: 180ms ease-out both fade-out; }
+::view-transition-new(root) { animation: 280ms var(--spring-soft) both page-in; }
+@keyframes fade-out { to { opacity: 0; } }
+@keyframes page-in { from { opacity: 0; transform: translateY(8px); } }
+.page-enter { animation: page-in 280ms var(--spring-soft) both; }
+
+/* Shared-element morph: the pressed card grows into the next heading. */
+.morph-target { view-transition-name: morph; }
+::view-transition-group(morph) { animation-duration: 420ms; animation-timing-function: var(--spring); }
+::view-transition-old(morph), ::view-transition-new(morph) { height: 100%; object-fit: cover; }
+
+/* Splash: the plant grows in, then the wordmark fades up. */
+.grow-in { animation: grow-in 900ms var(--spring) both; transform-origin: 50% 90%; }
+@keyframes grow-in { from { opacity: 0; transform: scale(0.3) translateY(20px); } to { opacity: 1; transform: none; } }
+.fade-in { opacity: 0; animation: rise 600ms var(--spring-soft) forwards; animation-delay: var(--d, 0ms); }
+
+/* ---- Button ripple (a child span added by ui/components/ripple.js) ---- */
+.ripple {
+  position: absolute; border-radius: 50%; pointer-events: none;
+  background: currentColor; opacity: 0.22; transform: scale(0);
+  animation: ripple 600ms ease-out forwards;
+}
+@keyframes ripple { to { transform: scale(1); opacity: 0; } }
+
+/* ---- Skeleton shimmer ---- */
+.skeleton {
+  position: relative; overflow: hidden; border-radius: 1rem;
+  background: rgb(var(--c-surface-2));
+}
+.skeleton::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(90deg, transparent, rgb(var(--c-surface) / 0.7), transparent);
+  transform: translateX(-100%); animation: shimmer 1.6s ease-in-out infinite;
+}
+@keyframes shimmer { to { transform: translateX(100%); } }
+
+/* ---- Mic halo: a glow ring that pulses while listening ---- */
+.halo { position: relative; display: inline-flex; }
+.halo::before {
+  content: ''; position: absolute; inset: -10px; border-radius: 999px;
+  border: 3px solid rgb(var(--c-sun)); opacity: 0; transform: scale(0.9);
+}
+.halo[data-active='true']::before { animation: halo 1.6s ease-out infinite; }
+@keyframes halo { 0% { opacity: 0.9; transform: scale(0.9); } 100% { opacity: 0; transform: scale(1.35); } }
+
+/* ---- Photo shared-element: the captured photo shrinks from the camera frame into the result header ---- */
+.photo-target { view-transition-name: photo; }
+::view-transition-group(photo) { animation-duration: 450ms; animation-timing-function: var(--spring); }
+
+/* ---- Confidence meter drawn as a plant-growth bar: a stem grows from the left, a leaf sits at the tip ---- */
+.meter { position: relative; height: 2.2rem; border-radius: 999px; background: rgb(var(--c-surface-2));
+  border: var(--border-w) solid rgb(var(--c-ink)); overflow: visible; }
+.meter-fill { position: absolute; inset: 0.2rem; border-radius: 999px; background: rgb(var(--c-leaf));
+  transform-origin: left center; transform: scaleX(0); animation: meter-grow 1.4s var(--spring) 0.4s forwards;
+  width: calc((100% - 0.4rem)); }
+@keyframes meter-grow { to { transform: scaleX(var(--p)); } }
+.meter-leaf { position: absolute; top: -0.55rem; width: 2.8rem; height: 2.8rem; left: 0; opacity: 0;
+  animation: meter-leaf 1.4s var(--spring) 0.4s forwards; }
+@keyframes meter-leaf { to { opacity: 1; left: calc((100% - 2.4rem) * var(--p)); } }
+
+/* ---- Action steps check off with a leaf-tick that draws itself ---- */
+.tick path { stroke-dasharray: 1; stroke-dashoffset: 1; transition: stroke-dashoffset 420ms ease-out; }
+[data-done][aria-pressed='true'] { background: rgb(var(--c-leaf)); }
+[data-done][aria-pressed='true'] .tick path { stroke-dashoffset: 0; }
+li.done > div > p { opacity: 0.6; }
+
+/* ---- Animated weather icons: sun rays rotate slowly, rain drops fall, clouds drift ---- */
+.wx-rays { transform-origin: 24px 24px; animation: wx-spin 28s linear infinite; }
+@keyframes wx-spin { to { transform: rotate(360deg); } }
+.wx-cloud { animation: wx-drift 7s ease-in-out infinite alternate; }
+@keyframes wx-drift { from { transform: translateX(-1.5px); } to { transform: translateX(1.5px); } }
+.wx-drop { animation: wx-fall 1.4s ease-in infinite; animation-delay: calc(var(--i, 0) * 0.3s); }
+@keyframes wx-fall { 0% { transform: translateY(-3px); opacity: 0; } 30% { opacity: 1; } 100% { transform: translateY(6px); opacity: 0; } }
+.wx-bolt { animation: wx-bolt 4s ease-in-out infinite; }
+@keyframes wx-bolt { 0%, 90%, 100% { opacity: 1; } 94% { opacity: 0.55; } }
+
+/* ---- Weather page background shifts subtly with the weather and the time of day (tokens only) ---- */
+.wx-page { border-radius: 0 0 2rem 2rem; transition: background 800ms ease; }
+.wx-page[data-daypart='day'][data-wx='clear'], .wx-page[data-daypart='day'][data-wx='partly'] { background: linear-gradient(rgb(var(--c-sun) / 0.18), transparent 60%); }
+.wx-page[data-wx='rain'], .wx-page[data-wx='showers'], .wx-page[data-wx='drizzle'], .wx-page[data-wx='storm'] { background: linear-gradient(rgb(var(--c-ink-soft) / 0.22), transparent 70%); }
+.wx-page[data-wx='cloudy'], .wx-page[data-wx='fog'] { background: linear-gradient(rgb(var(--c-ink-soft) / 0.12), transparent 60%); }
+.wx-page[data-daypart='night'] { background: linear-gradient(rgb(var(--c-ink) / 0.28), transparent 70%); }
+
+/* ---- Reduced motion: static plant, brightness changes tell the state instead ---- */
+@media (prefers-reduced-motion: reduce) { :root { --reduce: 1; } }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; scroll-behavior: auto !important; }
+  .reveal, .fade-in { opacity: 1; transform: none; }
+}
+html[data-motion='reduce'] *, html[data-motion='reduce'] *::before, html[data-motion='reduce'] *::after {
+  animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; scroll-behavior: auto !important;
+}
+html[data-motion='reduce'] .reveal, html[data-motion='reduce'] .fade-in { opacity: 1; transform: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .meter-fill { transform: scaleX(var(--p)); } .meter-leaf { opacity: 1; left: calc((100% - 2.4rem) * var(--p)); }
+  .wx-rays, .wx-cloud, .wx-drop, .wx-bolt { animation: none; }
+}
+html[data-motion='reduce'] .meter-fill { transform: scaleX(var(--p)); }
+html[data-motion='reduce'] .meter-leaf { opacity: 1; left: calc((100% - 2.4rem) * var(--p)); }
+html[data-motion='reduce'] .wx-rays, html[data-motion='reduce'] .wx-cloud, html[data-motion='reduce'] .wx-drop, html[data-motion='reduce'] .wx-bolt { animation: none; }
+
+/* ---- Logo mark loader: the mark breathes (only loaders animate the mark) ---- */
+.mark-loader { animation: breathe 1.8s ease-in-out infinite alternate; }
+@keyframes breathe { from { transform: scale(0.94); opacity: 0.75; } to { transform: scale(1); opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { .mark-loader { animation: none; } }
+html[data-motion='reduce'] .mark-loader { animation: none; }
+.fade-in { opacity: 0; animation: rise 500ms var(--spring-soft) forwards; animation-delay: var(--d, 0ms); }

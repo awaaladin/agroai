@@ -1,0 +1,92 @@
+# Chemical and scope safety lists, enforced in code (app/knowledge/safety.py) AND stated in the prompt.
+#
+# IMPORTANT: STARTER LIST. It is based on widely banned or restricted pesticides (Stockholm and Rotterdam
+# conventions plus products commonly flagged by Nigerian regulators). It is NOT an authoritative legal list.
+# Have an extension officer or NAFDAC/NAQS guidance review and extend it before real-world use.
+
+# Never recommended, never named as something to use. If the AI mentions one, the answer is rejected.
+banned:
+  - ddt
+  - aldrin
+  - dieldrin
+  - endrin
+  - chlordane
+  - heptachlor
+  - lindane
+  - endosulfan
+  - carbofuran
+  - methamidophos
+  - monocrotophos
+  - parathion
+  - methyl parathion
+  - paraquat
+  - chlorpyrifos
+  - dichlorvos
+  - ddvp
+  - sniper
+
+# May be mentioned, always as an option to ask the extension officer about, never with a dose.
+# Product classes first, then example active ingredients.
+allowed:
+  classes:
+    - botanical insecticide such as neem
+    - insecticidal soap
+    - pyrethroid insecticide
+    - biological insecticide such as Bacillus thuringiensis
+    - copper-based fungicide
+    - sulfur-based fungicide
+    - triazole fungicide
+    - protective contact fungicide
+  active_ingredients:
+    - neem
+    - azadirachtin
+    - Bacillus thuringiensis
+    - spinosad
+    - emamectin benzoate
+    - chlorantraniliprole
+    - lambda-cyhalothrin
+    - copper oxychloride
+    - copper hydroxide
+    - mancozeb
+    - propiconazole
+    - sulfur
+
+# Any dose, rate or mixing amount is forbidden. Regexes (case-insensitive) matched against all answer text.
+dosage_patterns:
+  - '\d+(?:[.,]\d+)?\s?(?:ml|mls|millilit(?:er|re)s?|cl|l|litres?|liters?|g|gm|grams?|kg|kilograms?|mg)\b'
+  - '\d+(?:[.,]\d+)?\s?(?:tablespoons?|tbsp|teaspoons?|tsp|cups?|bottle caps?|caps?|sachets?|tablets?|%)'
+  - '\bper\s+(?:hectare|acre|litre|liter|knapsack|tank|bucket|ha)\b'
+  - '\b(?:one|two|three|four|five|six|seven|eight|nine|ten|half)\s+(?:tablespoons?|teaspoons?|cups?|bottle caps?|sachets?|litres?|liters?|mls?|grams?|kilograms?)\b'
+
+# If the answer talks about chemicals, it must also contain a label reminder and protective advice.
+chemical_trigger_terms:
+  - insecticide
+  - fungicide
+  - pesticide
+  - herbicide
+  - chemical
+  - agrochemical
+  - spray product
+required_label_terms:
+  - label
+required_protection_terms:
+  - glove
+  - mask
+  - long clothes
+  - long cloth
+  - protective
+  - protection
+  - boots
+  - re-entry
+  - keep out
+
+# Topics the advisor must decline and send to a professional.
+out_of_scope:
+  decline:
+    - human medical advice
+    - financial or loan advice
+    - legal advice
+  refer_to_professional:
+    - livestock or animal illness (see a vet)
+    - human health problems
+    - pesticide poisoning or any emergency (see a doctor or go to a clinic straight away)

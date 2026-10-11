@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#F7F1E1" />
+    <meta name="description" content="Farm advice in English or Pidgin: photograph your crop, ask a question, check the weather." />
+    <link rel="icon" type="image/svg+xml" href="/icons/icon.svg" />
+    <title>AgroAI Advisor</title>
+    <!-- Critical CSS: keeps the page from flashing unstyled (and the skip link from showing) while the app loads. -->
+    <style>
+      html { background: #F7F1E1; }
+      html[data-theme='dark'] { background: #0B1F18; color: #F7F1E1; }
+      body { margin: 0; font-family: system-ui, sans-serif; }
+      .skip-link { position: absolute; left: 1rem; top: -5rem; }
+      .skip-link:focus { top: 1rem; }
+      .boot { display: flex; min-height: 70vh; align-items: center; justify-content: center; }
+      .boot img { width: 64px; height: 64px; animation: boot 1.6s ease-in-out infinite alternate; }
+      @keyframes boot { from { opacity: .45; transform: scale(.94); } to { opacity: 1; transform: none; } }
+      @media (prefers-reduced-motion: reduce) { .boot img { animation: none; } }
+    </style>
+    <!-- Apply saved theme, text size and motion choice before first paint so nothing flashes. -->
+    <script>
+      (function () {
+        try {
+          var s = JSON.parse(localStorage.getItem('agroai.settings') || '{}');
+          var d = document.documentElement;
+          var dark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+          d.dataset.theme = s.theme || (dark ? 'dark' : 'light');
+          if (s.textScale) d.style.setProperty('--text-scale', s.textScale);
+          if (s.reduceMotion) d.dataset.motion = 'reduce';
+          if (s.language === 'pcm') d.lang = 'en-NG';
+        } catch (e) {}
+      })();
+    </script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <div id="live" class="sr-only" role="status" aria-live="polite"></div>
+    <header id="site-header" class="sticky top-0 z-30 border-b border-line bg-bg/95 backdrop-blur"></header>
+    <main id="main" tabindex="-1" class="min-h-[60dvh]"><div class="boot" role="status" aria-label="Loading"><img src="/icons/icon.svg" alt=""></div></main>
+    <footer id="site-footer" class="border-t border-line"></footer>
+    <noscript>
+      <p style="padding:2rem">AgroAI Advisor needs JavaScript to work. Please turn it on in your browser settings.</p>
+    </noscript>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

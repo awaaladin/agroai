@@ -1,0 +1,13 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "installCommand": "cd web && npm ci",
+  "buildCommand": "cd web && npm run build",
+  "outputDirectory": "web/dist",
+  "build": { "env": { "VITE_API_BASE": "" } },
+  "functions": {
+    "api/index.py": { "maxDuration": 60, "includeFiles": "backend/app/**" }
+  },
+  "rewrites": [
+    { "source": "/v1/:path*", "destination": "/api/index" }
+  ]
+}

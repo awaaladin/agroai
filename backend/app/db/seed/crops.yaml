@@ -1,0 +1,174 @@
+# Grounding facts for the six MVP crops, Akwa Ibom (humid forest zone, south-south Nigeria).
+# Injected into the prompt as context; the AI must not treat it as a complete list of possible problems.
+# STARTER CONTENT: have a local extension officer review it before the demo.
+#
+# Rainfall pattern used in the calendars: main rains roughly March to July, a short "August break",
+# second rains September to October, dry season (harmattan haze) November to February.
+
+region:
+  name: Akwa Ibom, Nigeria
+  main_rains: March to July
+  august_break: August
+  second_rains: September to October
+  dry_season: November to February
+
+crops:
+  cassava:
+    local_names: [cassava, akpu, garri crop]
+    growth_stages:
+      - {name: establishment, period: "0 to 3 months", notes: "Sprouting and canopy forming. Weed early."}
+      - {name: vegetative, period: "3 to 6 months", notes: "Leaves and stems grow fast. Most disease symptoms show on new leaves."}
+      - {name: tuber bulking, period: "6 to 12 months", notes: "Roots fill. Avoid waterlogging."}
+    planting_calendar: "Plant at the start of the main rains (March to May) or in the second rains (September). Use healthy stem cuttings about 20 to 25 cm long."
+    common_problems:
+      - name: Cassava mosaic disease
+        type: virus
+        serious: true
+        signs: "Yellow and green mosaic on leaves, twisting and curling, small plants. Spread by whiteflies and infected cuttings."
+        low_cost_actions: "Rogue (pull out and burn or bury) infected plants early, use clean cuttings from healthy plants, plant tolerant varieties."
+      - name: Cassava bacterial blight
+        type: bacteria
+        serious: true
+        signs: "Angular water-soaked leaf spots, leaf wilt and dieback, gum on stems."
+        low_cost_actions: "Use clean cuttings, remove infected plants, rotate crops, clean cutting tools."
+      - name: Cassava green mite
+        type: pest
+        serious: false
+        signs: "Leaves speckled yellow at the top shoots, stunted tips, worst in the dry season."
+        low_cost_actions: "Plant early so plants are strong before the dry season, use tolerant varieties."
+      - name: Cassava mealybug
+        type: pest
+        serious: false
+        signs: "White cottony insects at shoot tips, bunched and shortened top leaves."
+        low_cost_actions: "Remove and destroy badly hit tips, avoid moving cuttings from infested farms."
+
+  yam:
+    local_names: [yam, ubi, isu]
+    growth_stages:
+      - {name: sprouting, period: "0 to 2 months", notes: "Seed yams sprout in mounds or ridges."}
+      - {name: vine growth, period: "2 to 5 months", notes: "Stake vines. Leaf diseases show up here."}
+      - {name: tuber bulking, period: "5 to 8 months", notes: "Tubers fill. Vines yellow as harvest nears."}
+    planting_calendar: "Plant from February to April, before or at the start of the main rains. Stake when vines are about 30 cm."
+    common_problems:
+      - name: Yam anthracnose
+        type: fungus
+        serious: false
+        signs: "Brown to black leaf spots, often with a yellow edge, scorched leaf tips, worst in humid weather."
+        low_cost_actions: "Plant healthy seed yams, stake vines for airflow, remove badly spotted leaves, rotate crops."
+      - name: Yam mosaic virus
+        type: virus
+        serious: true
+        signs: "Mosaic or green banding on leaves, leaf curling and stunted vines."
+        low_cost_actions: "Use clean seed yams, remove infected plants, control weeds near the farm."
+      - name: Yam beetle
+        type: pest
+        serious: false
+        signs: "Chewed leaves and tubers with holes."
+        low_cost_actions: "Handpick beetles, clear bushes near the farm, harvest on time."
+      - name: Tuber rot (dry rot, soft rot)
+        type: fungus
+        serious: false
+        signs: "Soft or dry decay in stored or growing tubers, bad smell."
+        low_cost_actions: "Store only healthy tubers in a ventilated barn, dry them before storage, avoid wounding tubers."
+
+  maize:
+    local_names: [maize, oka, corn]
+    growth_stages:
+      - {name: seedling, period: "0 to 3 weeks", notes: "Check for cutworms and early fall armyworm."}
+      - {name: vegetative, period: "3 to 8 weeks", notes: "Check the whorl every week for armyworm."}
+      - {name: tasseling and silking, period: "8 to 11 weeks", notes: "Water and nutrient stress matter most here."}
+      - {name: grain filling and drying, period: "11 to 14 weeks", notes: "Harvest when husks dry; dry cobs in sun before storage."}
+    planting_calendar: "Plant at the start of the main rains (March to April) and again in the second rains (August end to September). Plant together with neighbours to reduce pest build-up."
+    common_problems:
+      - name: Fall armyworm
+        type: pest
+        serious: true
+        signs: "Ragged holes and windows in young leaves, fresh sawdust-like droppings in the whorl, caterpillars with an upside-down Y on the head."
+        low_cost_actions: "Scout 20 plants early morning, hand-pick and crush caterpillars, dry sand or wood ash in the whorl, plant early with neighbours."
+      - name: Maize streak virus
+        type: virus
+        serious: true
+        signs: "Narrow yellow streaks along leaf veins, stunted plants. Spread by leafhoppers."
+        low_cost_actions: "Rogue infected plants, plant early, use streak-tolerant varieties."
+      - name: Stem borer
+        type: pest
+        serious: false
+        signs: "Neat round holes in leaves, dead heart in young plants, tunnels in stems."
+        low_cost_actions: "Destroy crop residues after harvest, rotate with legumes."
+      - name: Grey leaf spot
+        type: fungus
+        serious: false
+        signs: "Long tan to grey rectangular spots between veins in humid weather."
+        low_cost_actions: "Rotate crops, bury residues, space plants for airflow."
+
+  plantain:
+    local_names: [plantain, banana]
+    growth_stages:
+      - {name: establishment, period: "0 to 4 months", notes: "Suckers establish; keep weed-free."}
+      - {name: vegetative, period: "4 to 9 months", notes: "Leaf diseases show on older leaves first."}
+      - {name: flowering and bunch, period: "9 to 14 months", notes: "Prop heavy bunches; protect from wind."}
+    planting_calendar: "Plant suckers at the start of the rains (March to June). Use clean, healthy suckers and give each stand room."
+    common_problems:
+      - name: Black sigatoka
+        type: fungus
+        serious: false
+        signs: "Dark brown streaks between veins on older leaves growing into dead patches with a yellow edge. Spreads in humid weather."
+        low_cost_actions: "Cut and bury leaves that are more than a third dead, remove extra suckers and weeds, keep correct spacing, plant tolerant varieties."
+      - name: Banana weevil
+        type: pest
+        serious: false
+        signs: "Tunnels in the corm at the base, weak or toppling plants."
+        low_cost_actions: "Use clean suckers, trap weevils with split pseudostems, keep the farm clean."
+      - name: Banana bunchy top virus
+        type: virus
+        serious: true
+        signs: "Short, bunched, upright leaves with dark green streaks on the veins."
+        low_cost_actions: "Remove and destroy infected plants, use clean planting material only."
+
+  cocoyam:
+    local_names: [cocoyam, ede]
+    growth_stages:
+      - {name: establishment, period: "0 to 2 months", notes: "Keep moist, not waterlogged."}
+      - {name: vegetative, period: "2 to 6 months", notes: "Leaf blight shows in wet weather."}
+      - {name: corm bulking, period: "6 to 9 months", notes: "Cormels fill; leaves yellow near harvest."}
+    planting_calendar: "Plant at the start of the main rains (March to May) on moist, well-drained soil."
+    common_problems:
+      - name: Cocoyam leaf blight
+        type: fungus
+        serious: true
+        signs: "Large water-soaked brown patches on leaves that spread fast in wet weather and can destroy the leaves."
+        low_cost_actions: "Plant tolerant varieties, remove badly blighted leaves, space plants, avoid planting in water-logged patches."
+      - name: Cocoyam root rot
+        type: fungus
+        serious: false
+        signs: "Yellowing, wilting and soft rotten corms in waterlogged soil."
+        low_cost_actions: "Plant on mounds or ridges with good drainage, rotate crops."
+      - name: Dasheen mosaic virus
+        type: virus
+        serious: false
+        signs: "Feathery pale patterns along veins and distorted leaves."
+        low_cost_actions: "Use clean planting material and remove infected plants."
+
+  pepper:
+    local_names: [pepper, ata, chilli, chili]
+    growth_stages:
+      - {name: nursery, period: "0 to 6 weeks", notes: "Raise seedlings on a clean nursery bed."}
+      - {name: vegetative, period: "6 to 10 weeks", notes: "Transplant; watch for whiteflies, aphids and mites."}
+      - {name: flowering and fruiting, period: "10 to 20 weeks", notes: "Avoid water stress; harvest ripe fruits often."}
+    planting_calendar: "Transplant at the start of the main rains (April to May) or in the second rains (September). Dry-season crops need regular watering."
+    common_problems:
+      - name: Pepper leaf curl (virus carried by whiteflies, or mites)
+        type: virus or pest
+        serious: false
+        signs: "Leaves curl upward, thicken and crinkle, stunted tops. Look under leaves for tiny insects or fine webs."
+        low_cost_actions: "Remove badly affected plants if many whiteflies are present, keep weeds down, mulch, water early morning."
+      - name: Anthracnose (fruit rot)
+        type: fungus
+        serious: false
+        signs: "Sunken dark spots on ripe fruit."
+        low_cost_actions: "Use clean seed, harvest on time, rotate crops, avoid overhead splashing."
+      - name: Bacterial wilt
+        type: bacteria
+        serious: true
+        signs: "Sudden wilting of green plants. A cut stem placed in water releases milky streams."
+        low_cost_actions: "Remove and destroy wilted plants, rotate away from peppers, tomatoes and eggplant for at least two seasons."

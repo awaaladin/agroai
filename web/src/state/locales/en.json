@@ -1,0 +1,397 @@
+{
+  "app": {
+    "name": "AgroAI Advisor",
+    "tagline": "Augmenting the farmer"
+  },
+  "common": {
+    "back": "Back",
+    "next": "Next",
+    "skip": "Skip",
+    "retry": "Try again",
+    "close": "Close",
+    "yes": "Yes",
+    "no": "No",
+    "repeat": "Repeat",
+    "pause": "Pause",
+    "listen": "Listen",
+    "loading": "One moment",
+    "send": "Send",
+    "delete": "Delete"
+  },
+  "language": {
+    "title": "Choose your language",
+    "english": "English",
+    "pidgin": "Pidgin",
+    "spoken": "You can change this any time in Settings.",
+    "pick": "Tap your language"
+  },
+  "home": {
+    "greeting": {
+      "morning": "Good morning",
+      "afternoon": "Good afternoon",
+      "evening": "Good evening"
+    },
+    "ask": "How is the farm today?",
+    "check": "Check my crop",
+    "question": "Ask a question",
+    "weather": "Weather for my farm",
+    "where": "Weather for {town}",
+    "setTown": "Choose your town",
+    "tapPlant": "Tap the plant to hear me",
+    "sproutHello": "{greeting}. What would you like to do today? You can check a crop, ask a question, or see the weather."
+  },
+  "permissions": {
+    "camera": {
+      "title": "Let me see your crop",
+      "why": "I use the camera only when you take a picture of a leaf. The picture is not saved.",
+      "fallback": "No camera? You can pick a photo from your gallery."
+    },
+    "microphone": {
+      "title": "Talk to me",
+      "why": "The microphone lets you speak your question. You can always type instead.",
+      "fallback": "You can type your questions instead."
+    },
+    "location": {
+      "title": "Your farm weather",
+      "why": "Your rough location lets me check the weather where you farm. I only keep it for a short time.",
+      "fallback": "Pick your nearest town and I will use that."
+    },
+    "allow": "Allow",
+    "skip": "Not now",
+    "town": "Pick your nearest town",
+    "step": "Step {n} of 3",
+    "granted": "Thank you.",
+    "denied": "That is fine. You can still use the app.",
+    "townTitle": "Pick your nearest town",
+    "townSaved": "Thank you. I will use {town} for your weather.",
+    "useTown": "Pick a town instead",
+    "detecting": "Finding your area"
+  },
+  "errors": {
+    "network": "No network. Try again in a little while.",
+    "offline": "You are offline. Checking crops needs the internet.",
+    "timeout": "This is taking too long. Please try again.",
+    "server": "Something went wrong on my side. Please try again soon.",
+    "rate": "You are asking too fast. Please wait {seconds} seconds.",
+    "session": "Your session ended. Please sign in again.",
+    "camera": "I cannot open the camera. You can pick a photo from your gallery instead.",
+    "mic": "I cannot hear you. Please type your question instead.",
+    "location": "I cannot find your location. Please pick your nearest town."
+  },
+  "analyzing": [
+    "I am looking at the leaf carefully.",
+    "I am checking what could be wrong.",
+    "I am thinking about the weather on your farm.",
+    "Almost ready. Thank you for waiting."
+  ],
+  "speech": {
+    "voice": "Voice",
+    "speed": "Speaking speed",
+    "test": "Hear a sample",
+    "sample": "Hello. I am your farm advisor."
+  },
+  "kitchen": {
+    "title": "Kitchen sink",
+    "intro": "Every component and state, for developers."
+  },
+  "sprout": {
+    "idle": "Your plant is waiting",
+    "listening": "Listening",
+    "speaking": "Speaking",
+    "analyzing": "Looking at your crop",
+    "ready": "Answer ready"
+  },
+  "splash": {
+    "loading": "Getting your farm advisor ready"
+  },
+  "soon": {
+    "title": "Coming soon",
+    "body": "This part is being built. Please come back soon."
+  },
+  "icons": {
+    "camera": "Camera",
+    "mic": "Microphone",
+    "pin": "Location"
+  },
+  "voice": {
+    "title": "Choose a voice",
+    "female": "Woman",
+    "male": "Man",
+    "any": "Any",
+    "best": "Best for me",
+    "hear": "Hear this voice",
+    "none": "This device has no voices. You can still read everything on screen.",
+    "note": "Voices come from your phone or browser, so they sound different on different devices.",
+    "sample": "Hello. This is how I will sound.",
+    "open": "Voice"
+  },
+  "crops": {
+    "cassava": "Cassava",
+    "yam": "Yam",
+    "maize": "Maize",
+    "plantain": "Plantain",
+    "cocoyam": "Cocoyam",
+    "pepper": "Pepper",
+    "other": "Other crop"
+  },
+  "check": {
+    "title": "Check my crop",
+    "pickCrop": "Which crop is it?",
+    "optional": "You can skip this.",
+    "tips": [
+      "Come closer to the leaf.",
+      "Hold your phone steady.",
+      "Find good light.",
+      "Let the leaf fill the picture."
+    ],
+    "shutter": "Take picture",
+    "gallery": "Pick from gallery",
+    "openCamera": "Open camera",
+    "retake": "Take another photo",
+    "noCamera": "The camera is not available. Please pick a photo from your gallery.",
+    "symptoms": "Did you notice anything? (optional)",
+    "symptomsHint": "For example: leaves are turning yellow",
+    "send": "Check this photo",
+    "cropped": "Photo ready",
+    "badFile": "I could not open that photo. Please try another one."
+  },
+  "checking": {
+    "title": "Looking at your crop",
+    "slow": "This is taking a little longer. Thank you for waiting.",
+    "retakeTitle": "I need a clearer picture",
+    "failed": "I could not check this photo."
+  },
+  "result": {
+    "title": "What I found",
+    "confidence": "How sure I am",
+    "sure": "Sure",
+    "fairly": "Fairly sure",
+    "notSure": "Not sure",
+    "see": "What I see",
+    "why": "Why I think so",
+    "change": "What could change my mind",
+    "actions": "What to do",
+    "prevention": "How to stop it coming back",
+    "questions": "Please check on your farm",
+    "weatherNote": "About the weather",
+    "today": "Today",
+    "this_week": "This week",
+    "next_season": "Next season",
+    "send": "Send to an extension officer",
+    "preparing": "Preparing your message",
+    "copied": "Message copied. Paste it into WhatsApp or SMS.",
+    "askAbout": "Ask about this",
+    "newPhoto": "New photo",
+    "deleteData": "Delete my data",
+    "deleted": "Your information is deleted.",
+    "escalate": "Please show this to an extension officer.",
+    "alternatives": "It could also be",
+    "privacy": "Your photo was not saved. Your answer is kept for 30 minutes unless you delete it.",
+    "done": "Done"
+  },
+  "chat": {
+    "title": "Ask a question",
+    "placeholder": "Type your question here",
+    "send": "Send",
+    "hold": "Hold to speak",
+    "listening": "I am listening",
+    "typeInstead": "Voice is not available on this phone. Please type your question.",
+    "empty": "Ask me about your crops, pests, planting, or the weather.",
+    "you": "You",
+    "advisor": "Advisor",
+    "thinking": "Thinking",
+    "suggest": "Tap a question",
+    "heard": "I heard you. You can fix the words before sending.",
+    "starters": [
+      "My leaves are turning yellow. What should I check?",
+      "Can I spray my crop today?",
+      "When is a good time to plant?"
+    ]
+  },
+  "weather": {
+    "title": "Weather for my farm",
+    "now": "Now",
+    "forecast": "Next 5 days",
+    "meaning": "What this means for your farm today",
+    "hear": "Hear this",
+    "noLocation": "I need to know your town to check the weather.",
+    "pickTown": "Choose your town",
+    "rain": "Rain chance",
+    "wind": "Wind",
+    "high": "High",
+    "low": "Low",
+    "updated": "Weather for {town}",
+    "cond": {
+      "clear": "Sunny",
+      "partly": "Partly cloudy",
+      "cloudy": "Cloudy",
+      "fog": "Foggy",
+      "drizzle": "Light rain",
+      "rain": "Rain",
+      "showers": "Showers",
+      "storm": "Thunderstorm"
+    }
+  },
+  "errors2": {
+    "offlineCheck": "Checking crops needs the internet. Please connect and try again."
+  },
+  "nav": {
+    "home": "Home",
+    "dashboard": "Dashboard",
+    "check": "Check a crop",
+    "ask": "Ask a question",
+    "weather": "Weather",
+    "account": "My account",
+    "login": "Log in",
+    "register": "Create account",
+    "logout": "Log out",
+    "menu": "Menu",
+    "language": "Language",
+    "theme": "Switch colour theme",
+    "skip": "Skip to content"
+  },
+  "footer": {
+    "line": "AgroAI Advisor supports the farmer. It does not replace an extension officer.",
+    "privacy": "Photos are never stored. You can delete your information at any time.",
+    "built": "Built for farmers in Akwa Ibom, Nigeria."
+  },
+  "landing": {
+    "eyebrow": "Farm advice for Akwa Ibom",
+    "title": "Clear, practical help for your farm, in English or Pidgin.",
+    "lead": "Take a photo of a sick leaf, ask a question by voice or by typing, and get advice that fits your weather and your crops. When I am not sure, I say so and point you to an extension officer.",
+    "cta": "Create a free account",
+    "guest": "Try it without an account",
+    "haveAccount": "I already have an account",
+    "how": {
+      "title": "How it works",
+      "s1": {
+        "t": "Take a photo",
+        "b": "Photograph the leaf or plant that worries you. Add a few words about what you noticed."
+      },
+      "s2": {
+        "t": "Get reasons, not just a verdict",
+        "b": "You see what I see, why I think so, how sure I am, and what would change my mind."
+      },
+      "s3": {
+        "t": "Act, or ask a person",
+        "b": "Follow simple steps that start with low-cost methods. If it is serious or I am unsure, send the summary to an extension officer."
+      }
+    },
+    "example": {
+      "label": "Example of an answer",
+      "problem": "Cassava mosaic disease",
+      "sure": "Fairly sure (82%)",
+      "see": "Twisted leaves with pale yellow and green patches, and a smaller plant than its neighbours.",
+      "step": "Pull out the worst plants today and burn or bury them, so whiteflies cannot carry the virus on.",
+      "note": "An illustration of the layout, not a real farmer's result."
+    },
+    "crops": {
+      "title": "Crops it knows well",
+      "body": "Cassava, yam, maize, plantain, cocoyam and pepper, with the pests and diseases common in Akwa Ibom. For other crops it gives general advice and tells you it knows less."
+    },
+    "remember": {
+      "title": "Advice that knows your farm",
+      "body": "With an account, I remember your town, the crops you grow, and what happened before, so the advice is about your farm and not about farms in general. Your photos are never stored, and you can delete everything at any time."
+    },
+    "honest": {
+      "title": "What it cannot do",
+      "body": "It can be wrong. It cannot touch your plants or test your soil. For animals, health, money or legal questions please see the right professional. It will never give a chemical dose: always follow the label and your extension officer."
+    }
+  },
+  "auth": {
+    "loginTitle": "Log in",
+    "registerTitle": "Create your account",
+    "phone": "Mobile number",
+    "phoneHint": "For example 0803 123 4567",
+    "pin": "PIN",
+    "pinHint": "4 to 6 numbers you can remember",
+    "name": "Your name (optional)",
+    "town": "Nearest town",
+    "townPick": "Choose your town",
+    "useLocation": "Use my location",
+    "language": "Language",
+    "show": "Show PIN",
+    "hide": "Hide PIN",
+    "submitLogin": "Log in",
+    "submitRegister": "Create account",
+    "working": "One moment",
+    "noAccount": "No account yet?",
+    "hasAccount": "Already have an account?",
+    "pinNote": "Your PIN is not recoverable by SMS or email. Write it down somewhere safe.",
+    "welcome": "Welcome, {name}.",
+    "welcomeBack": "Welcome back, {name}.",
+    "bye": "You are logged out.",
+    "locating": "Finding your area",
+    "located": "Location saved.",
+    "invalidPhone": "Please enter a Nigerian mobile number like 0803 123 4567.",
+    "invalidPin": "Your PIN must be 4 to 6 numbers."
+  },
+  "dash": {
+    "title": "Your farm",
+    "hello": "{greeting}, {name}",
+    "helloGuest": "{greeting}",
+    "sub": "What would you like to do today?",
+    "recent": "Recent crop checks",
+    "none": "No crop checks yet. Take your first photo and it will appear here.",
+    "date": "Date",
+    "crop": "Crop",
+    "problem": "Finding",
+    "sure": "How sure",
+    "officer": "Officer",
+    "yes": "Sent",
+    "open": "Open",
+    "weatherToday": "Weather today",
+    "farm": "About your farm",
+    "farmSub": "I use this to make advice fit your farm.",
+    "crops": "Crops you grow",
+    "addCrop": "Add a crop",
+    "notes": "Notes about your farm",
+    "notesHint": "For example: sandy soil near the river, planted in March",
+    "save": "Save",
+    "saved": "Saved.",
+    "remembers": "What I remember",
+    "remembersBody": "{count} saved crop checks and our recent conversations. Photos are never kept.",
+    "viewAll": "See all",
+    "guestTitle": "You are using the app as a guest",
+    "guestBody": "Create a free account and I will remember your town, your crops and past checks, so my advice is about your farm.",
+    "checksTotal": "{count} checks saved",
+    "lastCheck": "Last check {date}"
+  },
+  "account": {
+    "title": "My account",
+    "profile": "Profile",
+    "phone": "Mobile number",
+    "display": "Voice and display",
+    "autoRead": "Read answers aloud automatically",
+    "sound": "Sounds",
+    "haptics": "Vibration",
+    "textSize": "Text size",
+    "theme": "Colour theme",
+    "light": "Light",
+    "dark": "Dark",
+    "contrast": "High contrast",
+    "reduceMotion": "Reduce motion",
+    "screenReader": "I use a screen reader (do not speak automatically)",
+    "small": "Normal",
+    "medium": "Large",
+    "large": "Largest",
+    "privacy": "Privacy",
+    "privacyBody": "Your photos are never stored. Your account keeps your profile, your crop checks (the answer only) and your recent chat. Nobody else can see them.",
+    "clearHistory": "Delete my history",
+    "clearConfirm": "Delete all your saved checks and chat? Your account stays.",
+    "deleteAccount": "Delete my account",
+    "deleteConfirm": "Delete your account and everything saved with it? This cannot be undone.",
+    "cleared": "Your history is deleted.",
+    "deleted": "Your account is deleted.",
+    "confirm": "Yes, delete",
+    "cancel": "Cancel",
+    "privacyPromise": "Hear the privacy promise",
+    "privacySpoken": "Your photos are not saved. With an account, I keep your checks and chats so I can help you better. You can delete everything whenever you want."
+  },
+  "history": {
+    "title": "Saved check",
+    "deleteOne": "Delete this check",
+    "deleted": "Check deleted.",
+    "saved": "Saved on {date}"
+  }
+}

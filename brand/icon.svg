@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512" role="img" aria-label="AgroAI Advisor">
+  <rect width="512" height="512" rx="112" fill="#F7F1E1"/>
+  <g transform="translate(0,-12)">
+    <circle cx="256" cy="196" r="92" fill="#F2B532"/>
+    <path d="M256 330 V232" stroke="#3BB273" stroke-width="14" stroke-linecap="round" fill="none"/>
+    <path d="M256 240 C236 180 186 160 140 170 C138 220 178 260 256 240 Z" fill="#3BB273"/>
+    <path d="M256 240 C222 214 188 194 158 184" stroke="#2E9A62" stroke-width="5" stroke-linecap="round" fill="none"/>
+    <path d="M256 230 C274 160 330 132 384 144 C390 200 346 250 256 230 Z" fill="#3BB273"/>
+    <g stroke="#F7F1E1" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <path d="M262 222 L322 184 H344"/>
+      <path d="M296 200 L316 214 H340"/>
+      <path d="M300 170 V156 L318 146"/>
+    </g>
+    <g fill="#F7F1E1"><circle cx="348" cy="184" r="6"/><circle cx="344" cy="214" r="6"/><circle cx="321" cy="144" r="6"/></g>
+    <path d="M92 318 C92 300 108 292 124 300 C150 316 180 324 206 324 H306 C332 324 362 316 388 300 C404 292 420 300 420 318 C420 388 350 440 256 440 C162 440 92 388 92 318 Z" fill="#0F3D2E"/>
+    <path d="M378 322 C378 360 350 392 308 406" stroke="#F7F1E1" stroke-width="6" stroke-linecap="round" fill="none"/>
+    <path d="M102 334 C132 346 166 350 196 346" stroke="#F7F1E1" stroke-width="6" stroke-linecap="round" fill="none"/><path d="M118 368 C146 378 176 380 202 375" stroke="#F7F1E1" stroke-width="6" stroke-linecap="round" fill="none"/>
+  </g>
+</svg>
